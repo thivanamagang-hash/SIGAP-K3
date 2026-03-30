@@ -1,0 +1,1789 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SIGAP K3 — PT Japfa Food Indonesia · Wonoayu</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=DM+Mono:wght@400;500&family=Fraunces:ital,wght@0,700;0,800;1,700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f0f4f0;
+  --surface: #ffffff;
+  --surface2: #f7faf7;
+  --primary: #1b4332;
+  --primary-mid: #2d6a4f;
+  --primary-light: #52b788;
+  --accent: #f9c74f;
+  --accent2: #f3722c;
+  --danger: #e63946;
+  --text: #1a2e1a;
+  --text-mid: #4a6741;
+  --text-muted: #8aab85;
+  --border: rgba(27,67,50,0.1);
+  --shadow-sm: 0 2px 8px rgba(27,67,50,0.08);
+  --shadow: 0 8px 32px rgba(27,67,50,0.12);
+  --shadow-lg: 0 20px 60px rgba(27,67,50,0.18);
+  --radius: 16px;
+  --radius-sm: 10px;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body { font-family:'Plus Jakarta Sans',sans-serif; background:var(--bg); color:var(--text); min-height:100vh; overflow-x:hidden; }
+
+/* LOGIN */
+#login-screen { min-height:100vh; display:flex; align-items:center; justify-content:center; background:var(--primary); position:relative; overflow:hidden; }
+#login-screen::before { content:''; position:absolute; inset:0; background: radial-gradient(ellipse 70% 60% at 20% 20%, rgba(82,183,136,0.15) 0%, transparent 60%), radial-gradient(ellipse 50% 70% at 80% 80%, rgba(249,199,79,0.08) 0%, transparent 60%), repeating-linear-gradient(45deg, transparent, transparent 60px, rgba(255,255,255,0.015) 60px, rgba(255,255,255,0.015) 61px); }
+.login-card { background:rgba(255,255,255,0.06); backdrop-filter:blur(24px); border:1px solid rgba(255,255,255,0.12); border-radius:24px; padding:48px; width:100%; max-width:420px; position:relative; z-index:1; animation:fadeUp 0.5s ease; }
+.login-logo { text-align:center; margin-bottom:36px; }
+.login-logo .shield { width:72px;height:72px; background:linear-gradient(135deg,var(--primary-light),var(--accent)); border-radius:20px; display:flex;align-items:center;justify-content:center; font-size:32px; margin:0 auto 16px; box-shadow:0 12px 32px rgba(82,183,136,0.4); }
+.login-logo h1 { font-family:'Fraunces',serif; font-size:28px; font-weight:800; color:white; letter-spacing:-0.5px; }
+.login-logo p { font-size:13px; color:rgba(255,255,255,0.5); margin-top:4px; }
+.login-tabs { display:flex; gap:8px; margin-bottom:24px; background:rgba(255,255,255,0.05); border-radius:12px; padding:4px; }
+.login-tab { flex:1; padding:10px; border:none; border-radius:9px; background:transparent; color:rgba(255,255,255,0.5); font-family:'Plus Jakarta Sans',sans-serif; font-size:13px; font-weight:600; cursor:pointer; transition:all 0.2s; }
+.login-tab.active { background:rgba(255,255,255,0.12); color:white; }
+.login-field { margin-bottom:16px; }
+.login-field label { display:block; font-size:12px; font-weight:600; color:rgba(255,255,255,0.5); margin-bottom:6px; text-transform:uppercase; letter-spacing:0.5px; }
+.login-field input { width:100%; padding:12px 16px; background:rgba(255,255,255,0.07); border:1px solid rgba(255,255,255,0.12); border-radius:10px; color:white; font-family:'Plus Jakarta Sans',sans-serif; font-size:14px; outline:none; transition:border-color 0.2s; }
+.login-field input:focus { border-color:var(--primary-light); }
+.login-field input::placeholder { color:rgba(255,255,255,0.25); }
+.btn-login { width:100%; padding:14px; background:linear-gradient(135deg,var(--primary-light),#40916c); border:none; border-radius:12px; color:white; font-family:'Plus Jakarta Sans',sans-serif; font-size:15px; font-weight:700; cursor:pointer; margin-top:8px; transition:all 0.2s; }
+.btn-login:hover { transform:translateY(-2px); box-shadow:0 8px 24px rgba(82,183,136,0.4); }
+.login-hint { text-align:center; font-size:11px; color:rgba(255,255,255,0.25); margin-top:16px; }
+
+/* APP LAYOUT */
+#app { display:none; }
+.layout { display:flex; min-height:100vh; }
+
+/* SIDEBAR */
+.sidebar { width:240px; background:var(--primary); display:flex; flex-direction:column; padding:20px 0; position:fixed; top:0; left:0; height:100vh; overflow-y:auto; z-index:100; transition:width 0.2s; }
+.sidebar-logo { display:flex; align-items:center; gap:12px; padding:0 20px 20px; border-bottom:1px solid rgba(255,255,255,0.08); margin-bottom:16px; }
+.s-icon { width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,var(--primary-light),var(--accent));display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0; }
+.s-text h2 { font-family:'Fraunces',serif; font-size:16px; font-weight:800; color:white; }
+.s-text p { font-size:10px; color:rgba(255,255,255,0.4); margin-top:1px; }
+.sidebar-role { display:flex; align-items:center; gap:8px; padding:10px 20px; background:rgba(255,255,255,0.06); margin:0 12px 16px; border-radius:10px; font-size:12px; color:rgba(255,255,255,0.7); font-weight:600; }
+.sidebar-section { font-size:10px; font-weight:700; color:rgba(255,255,255,0.3); text-transform:uppercase; letter-spacing:1px; padding:8px 20px 4px; margin-top:8px; }
+.nav-item { display:flex; align-items:center; gap:10px; padding:10px 20px; background:transparent; border:none; color:rgba(255,255,255,0.55); font-family:'Plus Jakarta Sans',sans-serif; font-size:13px; font-weight:500; cursor:pointer; width:100%; text-align:left; transition:all 0.2s; border-radius:0; }
+.nav-item:hover { background:rgba(255,255,255,0.06); color:white; }
+.nav-item.active { background:rgba(82,183,136,0.2); color:var(--primary-light); font-weight:700; }
+.nav-item .ni { font-size:16px; width:20px; flex-shrink:0; }
+.sidebar-bottom { margin-top:auto; padding:16px 12px 0; }
+.btn-logout { width:100%; padding:10px; background:rgba(230,57,70,0.15); border:1px solid rgba(230,57,70,0.2); border-radius:10px; color:rgba(255,100,100,0.9); font-family:'Plus Jakarta Sans',sans-serif; font-size:13px; font-weight:600; cursor:pointer; transition:all 0.2s; }
+.btn-logout:hover { background:rgba(230,57,70,0.25); }
+
+/* ADD/DELETE NAV BUTTONS (admin only) */
+.nav-admin-bar { display:flex; gap:4px; padding:4px 12px; }
+.btn-nav-add { flex:1; padding:7px; background:rgba(82,183,136,0.15); border:1px dashed rgba(82,183,136,0.4); border-radius:8px; color:var(--primary-light); font-size:11px; font-weight:600; cursor:pointer; font-family:'Plus Jakarta Sans',sans-serif; transition:all 0.2s; }
+.btn-nav-add:hover { background:rgba(82,183,136,0.25); }
+
+/* MAIN */
+.main { margin-left:240px; flex:1; display:flex; flex-direction:column; min-height:100vh; }
+.topbar { background:var(--surface); border-bottom:1px solid var(--border); padding:16px 28px; display:flex; align-items:center; justify-content:space-between; position:sticky; top:0; z-index:50; }
+.topbar-left h3 { font-family:'Fraunces',serif; font-size:18px; font-weight:800; color:var(--primary); }
+.topbar-left p { font-size:12px; color:var(--text-muted); margin-top:2px; }
+.topbar-right { display:flex; align-items:center; gap:12px; }
+.weather-pill { display:flex; align-items:center; gap:6px; padding:6px 14px; background:rgba(82,183,136,0.08); border:1px solid rgba(82,183,136,0.2); border-radius:20px; font-size:12px; font-weight:600; color:var(--primary-mid); white-space:nowrap; }
+.date-pill { padding:6px 14px; background:rgba(27,67,50,0.06); border-radius:20px; font-size:11px; color:var(--text-muted); font-family:'DM Mono',monospace; }
+
+/* PAGES */
+.page { display:none; padding:28px; animation:fadeUp 0.3s ease; }
+.page.active { display:block; }
+@keyframes fadeUp { from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:translateY(0)} }
+
+/* CARDS */
+.card { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); overflow:hidden; }
+.card-header { display:flex; align-items:center; justify-content:space-between; padding:16px 20px; border-bottom:1px solid var(--border); }
+.card-title { font-family:'Fraunces',serif; font-size:14px; font-weight:700; color:var(--primary); }
+.card-body { padding:20px; }
+
+/* GRID */
+.grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+.grid-3 { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+.grid-21 { display:grid; grid-template-columns:1.2fr 1fr; gap:20px; }
+.grid-12 { display:grid; grid-template-columns:1fr 1.2fr; gap:20px; }
+.form-row { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+.form-row3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; }
+.form-group { display:flex; flex-direction:column; gap:6px; margin-bottom:14px; }
+.form-group label { font-size:12px; font-weight:700; color:var(--text-mid); text-transform:uppercase; letter-spacing:0.4px; }
+.form-group input,.form-group select,.form-group textarea { padding:10px 14px; border:1.5px solid var(--border); border-radius:var(--radius-sm); font-family:'Plus Jakarta Sans',sans-serif; font-size:13px; color:var(--text); background:var(--surface2); outline:none; transition:border-color 0.2s; }
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus { border-color:var(--primary-light); background:white; }
+.form-group textarea { resize:vertical; }
+
+/* STATS */
+.stats-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
+.stat-card { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:20px; display:flex; flex-direction:column; align-items:flex-start; gap:8px; }
+.stat-icon { font-size:24px; width:44px;height:44px; border-radius:12px; display:flex;align-items:center;justify-content:center; }
+.stat-icon.hadir { background:rgba(82,183,136,0.12); }
+.stat-icon.sakit { background:rgba(230,57,70,0.1); }
+.stat-icon.izin { background:rgba(249,199,79,0.15); }
+.stat-icon.alpa { background:rgba(173,181,189,0.15); }
+.stat-val { font-family:'Fraunces',serif; font-size:32px; font-weight:800; color:var(--text); line-height:1; }
+.stat-lbl { font-size:12px; color:var(--text-muted); font-weight:500; }
+
+/* BUTTONS */
+.btn { padding:9px 18px; border-radius:var(--radius-sm); border:none; font-family:'Plus Jakarta Sans',sans-serif; font-size:13px; font-weight:600; cursor:pointer; transition:all 0.2s; display:inline-flex; align-items:center; gap:6px; }
+.btn:hover { transform:translateY(-1px); }
+.btn-primary { background:var(--primary); color:white; }
+.btn-success { background:var(--primary-light); color:white; }
+.btn-danger { background:var(--danger); color:white; }
+.btn-outline { background:transparent; border:1.5px solid var(--border); color:var(--text-mid); }
+.btn-outline:hover { border-color:var(--primary-light); color:var(--primary); }
+.btn-sm { padding:6px 12px; font-size:11px; }
+.btn-full { width:100%; justify-content:center; padding:12px; font-size:14px; }
+.btn-warn { background:rgba(249,199,79,0.2); border:1.5px solid var(--accent); color:#7a5f00; }
+
+/* TABLE */
+.tbl { width:100%; border-collapse:collapse; font-size:13px; }
+.tbl th { padding:10px 16px; text-align:left; font-size:11px; font-weight:700; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.5px; background:var(--surface2); border-bottom:1px solid var(--border); }
+.tbl td { padding:12px 16px; border-bottom:1px solid var(--border); vertical-align:middle; }
+.tbl tr:last-child td { border-bottom:none; }
+.tbl tr:hover td { background:var(--surface2); }
+
+/* BADGES */
+.badge { display:inline-flex;align-items:center;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700;white-space:nowrap; }
+.badge-green { background:rgba(82,183,136,0.12);color:var(--primary-mid); }
+.badge-red { background:rgba(230,57,70,0.1);color:var(--danger); }
+.badge-yellow { background:rgba(249,199,79,0.2);color:#7a5f00; }
+.badge-blue { background:rgba(67,97,238,0.1);color:#4361ee; }
+.badge-orange { background:rgba(243,114,44,0.12);color:#c85a00; }
+.badge-gray { background:rgba(173,181,189,0.2);color:#6c757d; }
+
+/* KELUHAN GRID */
+.keluhan-grid-ui { display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin-bottom:16px; }
+.kb { border:1.5px solid var(--border); border-radius:12px; padding:14px 10px; text-align:center; cursor:pointer; transition:all 0.2s; font-family:'Plus Jakarta Sans',sans-serif; }
+.kb:hover,.kb.sel { border-color:var(--primary-light); background:rgba(82,183,136,0.08); }
+.kb .ke { font-size:24px; display:block; margin-bottom:6px; }
+.kb .kn { font-size:11px; font-weight:600; color:var(--primary); }
+
+/* SEVERITY */
+.sev-row { display:flex; gap:8px; margin-bottom:16px; }
+.sev-b { flex:1; padding:9px 8px; border:1.5px solid var(--border); border-radius:9px; background:var(--surface2); cursor:pointer; font-size:12px; font-weight:600; font-family:'Plus Jakarta Sans',sans-serif; transition:all 0.2s; text-align:center; }
+.sev-b.ringan.sel { background:rgba(82,183,136,0.12);border-color:var(--primary-light);color:var(--primary-mid); }
+.sev-b.sedang.sel { background:rgba(249,199,79,0.15);border-color:var(--accent);color:#8a6d00; }
+.sev-b.berat.sel { background:rgba(230,57,70,0.1);border-color:var(--danger);color:#c1121f; }
+
+/* TIMER */
+.timer-box { background:var(--primary); border-radius:var(--radius); padding:24px 28px; display:flex; align-items:center; justify-content:space-between; gap:16px; margin-bottom:20px; }
+.timer-txt h4 { font-family:'Fraunces',serif; font-size:18px; font-weight:700; color:white; margin-bottom:4px; }
+.timer-txt p { font-size:12px; color:rgba(255,255,255,0.5); }
+.timer-num { font-family:'DM Mono',monospace; font-size:44px; color:var(--primary-light); letter-spacing:2px; min-width:140px; text-align:center; }
+.timer-btns { display:flex; gap:8px; }
+.btn-t { padding:10px 20px; border-radius:10px; border:none; font-family:'Plus Jakarta Sans',sans-serif; font-size:13px; font-weight:700; cursor:pointer; transition:all 0.2s; }
+.btn-t.go { background:var(--primary-light); color:white; }
+.btn-t.rst { background:rgba(255,255,255,0.1); color:white; }
+.btn-t:hover { transform:scale(1.03); }
+
+/* STRETCH CARD */
+.sc { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); overflow:hidden; transition:all 0.25s; }
+.sc:hover { transform:translateY(-4px); box-shadow:var(--shadow); }
+.sc-head { background:var(--primary); padding:16px 20px; display:flex; align-items:center; gap:10px; }
+.sc-n { width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:12px;color:var(--primary-light);flex-shrink:0; }
+.sc-name { font-family:'Fraunces',serif; font-size:14px; font-weight:700; color:white; flex:1; }
+.sc-body { padding:18px 20px; }
+.sc-emoji { font-size:36px; display:block; margin-bottom:10px; }
+.sc-steps { list-style:none; display:flex; flex-direction:column; gap:7px; }
+.sc-steps li { display:flex; gap:8px; font-size:12px; line-height:1.5; color:var(--text-mid); }
+.sc-steps li .n { width:18px;height:18px;background:var(--primary);color:white;border-radius:50%;font-size:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;font-family:'DM Mono',monospace; }
+.sc-dur { display:inline-flex;align-items:center;gap:5px;margin-top:12px;font-size:11px;font-weight:600;color:var(--primary-mid);font-family:'DM Mono',monospace; }
+
+/* BAR CHART */
+.bar-chart { display:flex; align-items:flex-end; gap:8px; height:120px; margin-bottom:8px; }
+.bar-wrap { flex:1; display:flex; flex-direction:column; align-items:center; gap:4px; height:100%; justify-content:flex-end; }
+.bar { width:100%; border-radius:6px 6px 0 0; transition:height 0.5s ease; min-height:4px; }
+.bar.hadir { background:linear-gradient(180deg,var(--primary-light),#40916c); }
+.bar.sakit { background:linear-gradient(180deg,#ff6b6b,var(--danger)); }
+.bar.izin { background:linear-gradient(180deg,#ffe066,var(--accent)); }
+.bar-lbl { font-size:10px; color:var(--text-muted); font-family:'DM Mono',monospace; }
+.bar-val { font-size:10px; font-weight:700; color:var(--text); }
+
+/* WEATHER */
+.weather-big { background:linear-gradient(135deg,var(--primary),var(--primary-mid)); border-radius:var(--radius); padding:28px; color:white; position:relative; overflow:hidden; }
+.weather-big::before { content:''; position:absolute; top:-30px; right:-30px; width:120px; height:120px; border-radius:50%; background:rgba(255,255,255,0.05); }
+.w-icon { font-size:52px; display:block; margin-bottom:8px; }
+.w-temp { font-family:'Fraunces',serif; font-size:48px; font-weight:800; line-height:1; margin-bottom:4px; }
+.w-cond { font-size:14px; color:rgba(255,255,255,0.7); margin-bottom:16px; }
+.w-details { display:flex; gap:16px; align-items:center; flex-wrap:wrap; }
+.w-detail { font-size:12px; color:rgba(255,255,255,0.6); }
+.w-detail strong { color:white; display:block; font-size:14px; }
+.btn-weather-refresh { background:rgba(255,255,255,0.15); border:1px solid rgba(255,255,255,0.25); color:white; border-radius:8px; padding:6px 12px; font-size:12px; font-weight:600; cursor:pointer; font-family:'Plus Jakarta Sans',sans-serif; transition:all 0.2s; margin-left:auto; }
+.btn-weather-refresh:hover { background:rgba(255,255,255,0.25); }
+
+/* KASUS */
+.kasus-item { display:flex; align-items:center; gap:14px; padding:12px 0; border-bottom:1px solid var(--border); }
+.kasus-item:last-child { border-bottom:none; }
+.kasus-dot { width:10px; height:10px; border-radius:50%; flex-shrink:0; }
+.kasus-name { font-size:13px; font-weight:600; color:var(--text); flex:1; }
+.kasus-count { font-family:'DM Mono',monospace; font-size:13px; font-weight:700; color:var(--primary); }
+.kasus-bar { flex:2; height:6px; background:var(--border); border-radius:3px; overflow:hidden; }
+.kasus-bar-fill { height:100%; border-radius:3px; background:var(--primary-light); transition:width 0.5s ease; }
+
+/* TOAST */
+.toast { position:fixed; bottom:28px; right:28px; background:var(--primary); color:white; padding:14px 22px; border-radius:14px; font-size:13px; font-weight:600; box-shadow:var(--shadow-lg); z-index:999; display:flex; align-items:center; gap:8px; transform:translateY(80px); opacity:0; transition:all 0.35s cubic-bezier(0.34,1.56,0.64,1); }
+.toast.show { transform:translateY(0); opacity:1; }
+
+/* INFO PAGE (P3K, Obat, Info Lain) */
+.info-card { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:20px; margin-bottom:16px; position:relative; }
+.info-card h4 { font-family:'Fraunces',serif; font-size:15px; font-weight:700; color:var(--primary); margin-bottom:8px; }
+.info-card p, .info-card li { font-size:13px; color:var(--text-mid); line-height:1.7; }
+.info-card ul { padding-left:18px; }
+.info-card .info-tag { display:inline-block; padding:2px 10px; background:rgba(82,183,136,0.1); color:var(--primary-mid); border-radius:20px; font-size:11px; font-weight:700; margin-bottom:8px; }
+.info-admin-bar { display:flex; gap:8px; margin-bottom:16px; }
+
+/* NEWS ADMIN */
+.news-item { display:flex; align-items:flex-start; gap:14px; padding:14px 0; border-bottom:1px solid var(--border); }
+.news-item:last-child { border-bottom:none; }
+.news-num { width:28px; height:28px; background:var(--primary); color:white; border-radius:8px; display:flex; align-items:center; justify-content:center; font-family:'DM Mono',monospace; font-size:11px; font-weight:700; flex-shrink:0; }
+.news-title { font-size:13px; font-weight:600; color:var(--text); line-height:1.5; margin-bottom:3px; }
+.news-meta { font-size:11px; color:var(--text-muted); }
+
+/* MISC */
+.sec-title { font-family:'Fraunces',serif; font-size:15px; font-weight:700; color:var(--primary); margin-bottom:14px; letter-spacing:-0.3px; }
+.mb16{margin-bottom:16px;} .mb24{margin-bottom:24px;} .mb32{margin-bottom:32px;} .mt16{margin-top:16px;}
+.empty { text-align:center; padding:32px; color:var(--text-muted); font-size:13px; }
+.empty .e-icon { font-size:36px; display:block; margin-bottom:8px; }
+.page-header { margin-bottom:24px; }
+.page-header h2 { font-family:'Fraunces',serif; font-size:24px; font-weight:800; color:var(--primary); letter-spacing:-0.5px; margin-bottom:4px; }
+.page-header p { font-size:13px; color:var(--text-muted); }
+
+/* MODAL */
+.modal-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.4); z-index:500; align-items:center; justify-content:center; }
+.modal-overlay.open { display:flex; }
+.modal-box { background:white; border-radius:20px; padding:32px; width:100%; max-width:480px; animation:fadeUp 0.3s ease; }
+.modal-box h3 { font-family:'Fraunces',serif; font-size:18px; color:var(--primary); margin-bottom:20px; }
+.modal-actions { display:flex; gap:10px; justify-content:flex-end; margin-top:20px; }
+
+@media(max-width:900px){
+  .sidebar{width:60px;}
+  .sidebar-logo .s-text,.sidebar-role,.nav-item span:not(.ni),.sidebar-section,.nav-admin-bar{display:none;}
+  .main{margin-left:60px;}
+  .stats-grid{grid-template-columns:1fr 1fr;}
+  .grid-2,.grid-12,.grid-21{grid-template-columns:1fr;}
+  .grid-3{grid-template-columns:1fr 1fr;}
+  .form-row,.form-row3{grid-template-columns:1fr;}
+  .keluhan-grid-ui{grid-template-columns:repeat(2,1fr);}
+}
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="login-screen">
+  <div class="login-card">
+    <div class="login-logo">
+      <div class="shield"><img src="LOGO-K3-TRANSPARANT.png" style="width:36px;height:36px;border-radius:8px" onerror="this.style.display='none';this.parentNode.textContent='🛡️'"></div>
+      <h1>SIGAP K3</h1>
+      <p>Sistem Informasi Kesehatan & Keselamatan Kerja</p>
+      <p>PT Japfa Food Indonesia · Wonoayu, Sidoarjo</p>
+    </div>
+    <div class="login-tabs">
+      <button class="login-tab active" onclick="setRole('admin',this)">👔 Admin / HSE</button>
+      <button class="login-tab" onclick="setRole('umum',this)">👷 Karyawan</button>
+    </div>
+    <div class="login-field"><label>Username</label><input type="text" id="l-user" placeholder="Masukkan username"></div>
+    <div class="login-field"><label>Password</label><input type="password" id="l-pass" placeholder="Masukkan password" onkeydown="if(event.key==='Enter')doLogin()"></div>
+    <button class="btn-login" onclick="doLogin()">Masuk ke Sistem →</button>
+    <div class="login-hint">Demo: admin/admin123 · karyawan/k3pabrik</div>
+  </div>
+</div>
+
+<div class="toast" id="toast"><span id="toast-msg"></span></div>
+
+<!-- APP -->
+<div id="app">
+  <div class="layout">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-logo">
+        <div class="s-icon"><img src="LOGO-K3-TRANSPARANT.png" style="width:24px;height:24px;border-radius:4px" onerror="this.style.display='none';this.parentNode.textContent='🛡️'"></div>
+        <div class="s-text"><h2>SIGAP K3</h2><p id="s-company">PT Japfa Food Indonesia</p></div>
+      </div>
+      <div class="sidebar-role"><span id="s-role-icon">👔</span><span id="s-role-txt">Admin / HSE</span></div>
+
+      <div class="sidebar-section">Menu Utama</div>
+      <div id="nav-menu-utama">
+        <button class="nav-item active" onclick="goPage('dashboard')" id="navbtn-dashboard"><span class="ni">📊</span><span>Dashboard</span></button>
+        <button class="nav-item" onclick="goPage('absensi')" id="navbtn-absensi"><span class="ni">📋</span><span>Absensi Harian</span></button>
+        <button class="nav-item" onclick="goPage('p3k')" id="navbtn-p3k"><span class="ni">🚑</span><span>Pertolongan Pertama</span></button>
+        <button class="nav-item" onclick="goPage('obat')" id="navbtn-obat"><span class="ni">💊</span><span>Obat-obatan</span></button>
+        <button class="nav-item" onclick="goPage('keluhan')" id="navbtn-keluhan"><span class="ni">🩺</span><span>Laporan Keluhan</span></button>
+        <button class="nav-item" onclick="goPage('skrining')" id="navbtn-skrining"><span class="ni">🔍</span><span>Skrining Fisik</span></button>
+        <button class="nav-item" onclick="goPage('peregangan')" id="navbtn-peregangan"><span class="ni">🧘</span><span>Peregangan</span></button>
+      </div>
+      <!-- Admin: tambah menu utama -->
+      <div class="nav-admin-bar" id="nav-add-bar" style="display:none;">
+        <button class="btn-nav-add" onclick="showModalTambahMenu('utama')">＋ Tambah Menu</button>
+      </div>
+
+      <div class="sidebar-section" id="s-info-section">Informasi Lain</div>
+      <div id="nav-info-lain">
+        <!-- Dynamic info pages go here -->
+      </div>
+      <div class="nav-admin-bar" id="nav-add-info-bar" style="display:none;">
+        <button class="btn-nav-add" onclick="showModalTambahMenu('info')">＋ Tambah Info</button>
+      </div>
+
+      <div class="sidebar-section" id="s-admin-section">Manajemen</div>
+      <button class="nav-item" id="nav-rekap" onclick="goPage('rekap')"><span class="ni">📈</span><span>Rekap Bulanan</span></button>
+      <button class="nav-item" id="nav-kasus" onclick="goPage('kasus')"><span class="ni">🏥</span><span>Data Kasus Sakit</span></button>
+
+      <div class="sidebar-bottom">
+        <button class="btn-logout" onclick="doLogout()">⎋ Keluar</button>
+      </div>
+    </aside>
+
+    <!-- MAIN -->
+    <main class="main">
+      <div class="topbar">
+        <div class="topbar-left">
+          <h3 id="page-title">Dashboard</h3>
+          <p id="page-date"></p>
+        </div>
+        <div class="topbar-right">
+          <div class="weather-pill" id="weather-pill">🌤️ Memuat cuaca...</div>
+          <div class="date-pill" id="date-pill"></div>
+        </div>
+      </div>
+
+      <!-- ─── DASHBOARD ─── -->
+      <div class="page active" id="page-dashboard">
+        <div class="page-header">
+          <h2>Selamat Datang 👋</h2>
+          <p>Ringkasan kondisi kesehatan & kehadiran karyawan hari ini</p>
+        </div>
+        <div class="stats-grid mb24">
+          <div class="stat-card"><div class="stat-icon hadir">✅</div><div class="stat-val" id="d-hadir">0</div><div class="stat-lbl">Hadir Hari Ini</div></div>
+          <div class="stat-card"><div class="stat-icon sakit">🤒</div><div class="stat-val" id="d-sakit">0</div><div class="stat-lbl">Sakit</div></div>
+          <div class="stat-card"><div class="stat-icon izin">📝</div><div class="stat-val" id="d-izin">0</div><div class="stat-lbl">Izin</div></div>
+          <div class="stat-card"><div class="stat-icon alpa">❓</div><div class="stat-val" id="d-alpa">0</div><div class="stat-lbl">Alpa</div></div>
+        </div>
+
+        <div class="grid-21 mb24">
+          <div style="display:flex;flex-direction:column;gap:20px;">
+            <!-- WEATHER with refresh -->
+            <div class="weather-big">
+              <span class="w-icon" id="w-icon">🌤️</span>
+              <div class="w-temp" id="w-temp">--°C</div>
+              <div class="w-cond" id="w-cond">Memuat data cuaca...</div>
+              <div class="w-details">
+                <div class="w-detail"><strong id="w-hum">--%</strong>Kelembapan</div>
+                <div class="w-detail"><strong id="w-wind">-- km/h</strong>Angin</div>
+                <div class="w-detail"><strong id="w-city">Wonoayu, Sidoarjo</strong>Lokasi</div>
+                <button class="btn-weather-refresh" onclick="loadWeather()" title="Refresh cuaca">↻ Refresh Cuaca</button>
+              </div>
+            </div>
+
+            <!-- NEWS — Admin managed -->
+            <div class="card">
+              <div class="card-header">
+                <span class="card-title">📰 Berita Keselamatan dan Kesehatan Kerja (K3)</span>
+                <button class="btn btn-success btn-sm" id="btn-tambah-berita" onclick="showModalBerita()" style="display:none;">＋ Tambah Berita</button>
+              </div>
+              <div class="card-body" id="news-container">
+                <div class="empty"><span class="e-icon">📰</span>Belum ada berita. Admin dapat menambahkan berita.</div>
+              </div>
+            </div>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:20px;">
+            <div class="card">
+              <div class="card-header"><span class="card-title">🏥 Kasus Sakit Terbanyak</span></div>
+              <div class="card-body" id="kasus-summary"><div class="empty"><span class="e-icon">🏥</span>Belum ada data kasus</div></div>
+            </div>
+            <div class="card">
+              <div class="card-header"><span class="card-title">🩺 Keluhan Terbaru</span></div>
+              <div class="card-body" style="padding:0;">
+                <table class="tbl">
+                  <thead><tr><th>Departemen</th><th>Keluhan</th><th>Status</th></tr></thead>
+                  <tbody id="dash-keluhan-body"><tr><td colspan="3"><div class="empty">Belum ada keluhan</div></td></tr></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- TIPS -->
+        <div class="card">
+          <div class="card-header">
+            <span class="card-title">💡 Tips Kesehatan Kerja Hari Ini</span>
+            <button class="btn btn-outline btn-sm" id="btn-edit-tips" onclick="toggleEditTips()" style="display:none;">✏️ Edit Tips</button>
+          </div>
+          <div class="card-body">
+            <div id="tips-display" class="grid-3"></div>
+            <div id="tips-editor" style="display:none;">
+              <div id="tips-editor-list" style="display:flex;flex-direction:column;gap:12px;margin-bottom:16px;"></div>
+              <button class="btn btn-success" onclick="simpanTips()">💾 Simpan Tips</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─── ABSENSI ─── (admin only) -->
+      <div class="page" id="page-absensi">
+        <div class="page-header"><h2>📋 Input Absensi Harian</h2><p>Catat kehadiran karyawan setiap hari — hanya Admin / HSE</p></div>
+        <div id="absensi-admin-content">
+          <div class="grid-2 mb24">
+            <div class="card">
+              <div class="card-header"><span class="card-title">① Total Kehadiran Hari Ini</span></div>
+              <div class="card-body">
+                <div class="form-row">
+                  <div class="form-group"><label>Total Karyawan Aktif</label><input type="number" id="ab-total" placeholder="Contoh: 120" min="0" oninput="hitungAlpa()"></div>
+                  <div class="form-group"><label>Jumlah Hadir</label><input type="number" id="ab-jml-hadir" placeholder="Contoh: 110" min="0" oninput="hitungAlpa()"></div>
+                </div>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px;">
+                  <div style="padding:12px;background:rgba(230,57,70,0.07);border-radius:10px;text-align:center;"><div style="font-size:11px;color:var(--text-muted);margin-bottom:4px;">Tidak Masuk</div><div style="font-family:'Fraunces',serif;font-size:28px;font-weight:800;color:var(--danger);" id="ab-tdk-masuk">0</div></div>
+                  <div style="padding:12px;background:rgba(173,181,189,0.15);border-radius:10px;text-align:center;"><div style="font-size:11px;color:var(--text-muted);margin-bottom:4px;">Alpa (otomatis)</div><div style="font-family:'Fraunces',serif;font-size:28px;font-weight:800;color:#6c757d;" id="ab-alpa-otomatis">0</div></div>
+                </div>
+                <button class="btn btn-success btn-full" onclick="simpanTotalHadir()">✅ Simpan Total Hadir</button>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-header"><span class="card-title">② Detail Karyawan Tidak Masuk</span></div>
+              <div class="card-body">
+                <div class="form-group"><label>Nama Karyawan</label><input type="text" id="ab-nama" placeholder="Nama lengkap"></div>
+                <div class="form-row">
+                  <div class="form-group"><label>Departemen</label><select id="ab-div"><option value="">-- Pilih --</option><option>Maintenance</option><option>QC</option><option>PGA</option><option>Logistik</option><option>FnA</option><option>Procurement</option><option>Produksi RPA</option><option>Produksi RTE</option><option>Produksi RTE (OS)</option><option>Other</option></select></div>
+                  <div class="form-group"><label>Status</label><select id="ab-status"><option value="Sakit">🤒 Sakit</option><option value="Izin">📝 Izin</option></select></div>
+                </div>
+                <div class="form-group"><label>Alasan / Keterangan</label><input type="text" id="ab-ket" placeholder="Contoh: demam, keperluan keluarga, cuti, dll."></div>
+                <button class="btn btn-danger btn-full" onclick="simpanTidakMasuk()">➕ Tambah ke Daftar</button>
+              </div>
+            </div>
+          </div>
+          <div class="card mb24">
+            <div class="card-header"><span class="card-title">Rekap Statistik Hari Ini</span><button class="btn btn-outline btn-sm" onclick="exportAbsensi()">⬇ Export CSV</button></div>
+            <div class="card-body">
+              <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;">
+                <div style="padding:16px;background:rgba(82,183,136,0.08);border-radius:12px;text-align:center;"><div style="font-family:'Fraunces',serif;font-size:32px;font-weight:800;color:var(--primary-mid);" id="ab-stat-hadir">0</div><div style="font-size:12px;color:var(--text-muted);">Hadir</div></div>
+                <div style="padding:16px;background:rgba(230,57,70,0.08);border-radius:12px;text-align:center;"><div style="font-family:'Fraunces',serif;font-size:32px;font-weight:800;color:var(--danger);" id="ab-stat-sakit">0</div><div style="font-size:12px;color:var(--text-muted);">Sakit</div></div>
+                <div style="padding:16px;background:rgba(249,199,79,0.12);border-radius:12px;text-align:center;"><div style="font-family:'Fraunces',serif;font-size:32px;font-weight:800;color:#d4a017;" id="ab-stat-izin">0</div><div style="font-size:12px;color:var(--text-muted);">Izin</div></div>
+                <div style="padding:16px;background:rgba(173,181,189,0.15);border-radius:12px;text-align:center;"><div style="font-family:'Fraunces',serif;font-size:32px;font-weight:800;color:#6c757d;" id="ab-stat-alpa">0</div><div style="font-size:12px;color:var(--text-muted);">Alpa</div></div>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header"><span class="card-title">Daftar Karyawan Tidak Masuk Hari Ini</span></div>
+            <div style="overflow-x:auto;"><table class="tbl"><thead><tr><th>Waktu</th><th>Nama</th><th>Departemen</th><th>Status</th><th>Alasan</th></tr></thead><tbody id="ab-log"><tr><td colspan="5"><div class="empty"><span class="e-icon">📋</span>Belum ada data</div></td></tr></tbody></table></div>
+          </div>
+        </div>
+        <!-- Karyawan view -->
+        <div id="absensi-umum-content" style="display:none;">
+          <div class="card"><div class="card-body"><div class="empty"><span class="e-icon">🔒</span>Data absensi hanya dapat diinput oleh Admin / HSE</div></div></div>
+        </div>
+      </div>
+
+      <!-- ─── P3K ─── -->
+      <div class="page" id="page-p3k">
+        <div class="page-header">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+            <div><h2>🚑 Pertolongan Pertama (P3K)</h2><p>Panduan tindakan pertolongan pertama di area kerja</p></div>
+            <button class="btn btn-success" id="btn-edit-p3k" onclick="toggleEditInfoPage('p3k')" style="display:none;">✏️ Edit Konten</button>
+          </div>
+        </div>
+        <div id="p3k-content"></div>
+      </div>
+
+      <!-- ─── OBAT ─── -->
+      <div class="page" id="page-obat">
+        <div class="page-header">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+            <div><h2>💊 Obat-obatan</h2><p>Daftar obat yang tersedia di klinik dan kotak P3K pabrik</p></div>
+            <button class="btn btn-success" id="btn-edit-obat" onclick="toggleEditInfoPage('obat')" style="display:none;">✏️ Edit Konten</button>
+          </div>
+        </div>
+        <div id="obat-content"></div>
+      </div>
+
+      <!-- ─── KELUHAN ─── -->
+      <div class="page" id="page-keluhan">
+        <div class="page-header"><h2>🩺 Laporan Keluhan</h2><p>Sampaikan keluhan secara anonim untuk ditindaklanjuti petugas K3</p></div>
+
+        <!-- TAB SWITCHER -->
+        <div style="display:flex;gap:0;margin-bottom:24px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;width:fit-content;">
+          <button id="tab-btn-fisik" onclick="switchKeluhan('fisik')" style="padding:12px 28px;border:none;background:var(--primary);color:white;font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:7px;transition:all 0.2s;">🩺 Kesehatan Fisik <span id="badge-fisik" class="badge badge-red" style="background:rgba(255,255,255,0.2);color:white;">0</span></button>
+          <button id="tab-btn-lingkungan" onclick="switchKeluhan('lingkungan')" style="padding:12px 28px;border:none;background:transparent;color:var(--text-mid);font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:7px;transition:all 0.2s;">🌿 Lingkungan Kerja <span id="badge-lingkungan" class="badge badge-green" style="">0</span></button>
+        </div>
+
+        <!-- TAB: FISIK -->
+        <div id="tab-fisik">
+          <div class="grid-2 mb24">
+            <div class="card">
+              <div class="card-header"><span class="card-title">Form Keluhan Kesehatan Fisik (Anonim)</span></div>
+              <div class="card-body">
+                <div class="form-group">
+                  <label>Departemen</label>
+                  <select id="kl-div">
+                    <option value="">-- Pilih Departemen --</option>
+                    <option>Maintenance</option><option>QC</option><option>PGA</option><option>Logistik</option><option>FnA</option><option>Procurement</option><option>Produksi RPA</option><option>Produksi RTE</option><option>Produksi RTE (OS)</option><option>Other</option>
+                  </select>
+                </div>
+                <div class="sec-title">Pilih Jenis Keluhan</div>
+                <div class="keluhan-grid-ui" id="keluhan-grid">
+                  <div class="kb" onclick="pilihK(this,'Nyeri Punggung')"><span class="ke">🔙</span><span class="kn">Nyeri Punggung</span></div>
+                  <div class="kb" onclick="pilihK(this,'Sakit Kepala')"><span class="ke">🤕</span><span class="kn">Sakit Kepala</span></div>
+                  <div class="kb" onclick="pilihK(this,'Kelelahan')"><span class="ke">😴</span><span class="kn">Kelelahan</span></div>
+                  <div class="kb" onclick="pilihK(this,'Nyeri Sendi')"><span class="ke">🦴</span><span class="kn">Nyeri Sendi</span></div>
+                  <div class="kb" onclick="pilihK(this,'Pusing')"><span class="ke">💫</span><span class="kn">Pusing</span></div>
+                  <div class="kb" onclick="pilihK(this,'Mual')"><span class="ke">🤢</span><span class="kn">Mual</span></div>
+                  <div class="kb" onclick="pilihK(this,'Iritasi Kulit')"><span class="ke">🤚</span><span class="kn">Iritasi Kulit</span></div>
+                  <div class="kb" onclick="pilihK(this,'Lainnya')"><span class="ke">➕</span><span class="kn">Lainnya</span></div>
+                </div>
+                <div class="form-group"><label>Keterangan Tambahan</label><textarea id="kl-ket" rows="3" placeholder="Deskripsikan keluhan lebih lanjut..."></textarea></div>
+                <div class="sec-title">Tingkat Keparahan</div>
+                <div class="sev-row">
+                  <button class="sev-b ringan" onclick="pilihSev(this,'Ringan')">😊 Ringan</button>
+                  <button class="sev-b sedang" onclick="pilihSev(this,'Sedang')">😐 Sedang</button>
+                  <button class="sev-b berat" onclick="pilihSev(this,'Berat')">😖 Berat</button>
+                </div>
+                <button class="btn btn-primary btn-full mt16" onclick="kirimKeluhan()">📤 Kirim Laporan Anonim</button>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-header"><span class="card-title">Log Keluhan Fisik Hari Ini</span><span id="kl-count-badge" class="badge badge-red">0 laporan</span></div>
+              <div style="overflow-x:auto;">
+                <table class="tbl">
+                  <thead><tr><th>Waktu</th><th>Dept.</th><th>Keluhan</th><th>Keparahan</th><th>Status</th></tr></thead>
+                  <tbody id="kl-log"><tr><td colspan="5"><div class="empty"><span class="e-icon">🩺</span>Belum ada laporan</div></td></tr></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB: LINGKUNGAN -->
+        <div id="tab-lingkungan" style="display:none;">
+          <div class="grid-2 mb24">
+            <div class="card">
+              <div class="card-header"><span class="card-title">Form Keluhan Lingkungan Kerja (Anonim)</span></div>
+              <div class="card-body">
+                <div class="form-group">
+                  <label>Departemen / Area Kerja</label>
+                  <select id="kll-div">
+                    <option value="">-- Pilih Departemen --</option>
+                    <option>Maintenance</option><option>QC</option><option>PGA</option><option>Logistik</option><option>FnA</option><option>Procurement</option><option>Produksi RPA</option><option>Produksi RTE</option><option>Produksi RTE (OS)</option><option>Other</option>
+                  </select>
+                </div>
+                <div class="sec-title">Kategori Masalah Lingkungan</div>
+                <div class="keluhan-grid-ui" id="keluhan-lingk-grid">
+                  <div class="kb" onclick="pilihKL(this,'Kebisingan')"><span class="ke">🔊</span><span class="kn">Kebisingan</span></div>
+                  <div class="kb" onclick="pilihKL(this,'Ventilasi / Udara')"><span class="ke">💨</span><span class="kn">Ventilasi / Udara</span></div>
+                  <div class="kb" onclick="pilihKL(this,'Suhu Terlalu Panas')"><span class="ke">🌡️</span><span class="kn">Suhu Terlalu Panas</span></div>
+                  <div class="kb" onclick="pilihKL(this,'Suhu Terlalu Dingin')"><span class="ke">🥶</span><span class="kn">Suhu Terlalu Dingin</span></div>
+                  <div class="kb" onclick="pilihKL(this,'Pencahayaan Kurang')"><span class="ke">💡</span><span class="kn">Pencahayaan Kurang</span></div>
+                  <div class="kb" onclick="pilihKL(this,'Bau / Paparan Kimia')"><span class="ke">⚗️</span><span class="kn">Bau / Kimia</span></div>
+                  <div class="kb" onclick="pilihKL(this,'Kebersihan Area')"><span class="ke">🧹</span><span class="kn">Kebersihan Area</span></div>
+                  <div class="kb" onclick="pilihKL(this,'Ergonomi / Postur Kerja')"><span class="ke">🪑</span><span class="kn">Ergonomi</span></div>
+                  <div class="kb" onclick="pilihKL(this,'Lantai / Permukaan Licin')"><span class="ke">⚠️</span><span class="kn">Lantai Licin</span></div>
+                  <div class="kb" onclick="pilihKL(this,'Kerusakan Fasilitas')"><span class="ke">🔧</span><span class="kn">Fasilitas Rusak</span></div>
+                  <div class="kb" onclick="pilihKL(this,'Limbah / Sampah')"><span class="ke">🗑️</span><span class="kn">Limbah / Sampah</span></div>
+                  <div class="kb" onclick="pilihKL(this,'Lainnya')"><span class="ke">➕</span><span class="kn">Lainnya</span></div>
+                </div>
+                <div class="form-group"><label>Lokasi Spesifik</label><input type="text" id="kll-lokasi" placeholder="Contoh: Ruang produksi lantai 2, area mesin X..."></div>
+                <div class="form-group"><label>Deskripsi Masalah</label><textarea id="kll-ket" rows="3" placeholder="Jelaskan kondisi lingkungan yang bermasalah..."></textarea></div>
+                <div class="sec-title">Tingkat Urgensi</div>
+                <div class="sev-row">
+                  <button class="sev-b ringan" onclick="pilihSevL(this,'Rendah')">🟢 Rendah</button>
+                  <button class="sev-b sedang" onclick="pilihSevL(this,'Sedang')">🟡 Sedang</button>
+                  <button class="sev-b berat" onclick="pilihSevL(this,'Tinggi')">🔴 Tinggi — Segera Ditangani</button>
+                </div>
+                <button class="btn btn-success btn-full mt16" onclick="kirimKeluhanLingkungan()">📤 Kirim Laporan Lingkungan</button>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-header"><span class="card-title">Log Keluhan Lingkungan</span><span id="kll-count-badge" class="badge badge-green">0 laporan</span></div>
+              <div style="overflow-x:auto;">
+                <table class="tbl">
+                  <thead><tr><th>Waktu</th><th>Dept.</th><th>Masalah</th><th>Lokasi</th><th>Urgensi</th><th>Status</th></tr></thead>
+                  <tbody id="kll-log"><tr><td colspan="6"><div class="empty"><span class="e-icon">🌿</span>Belum ada laporan lingkungan</div></td></tr></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─── SKRINING ─── -->
+      <div class="page" id="page-skrining">
+        <div class="page-header"><h2>🔍 Skrining Kesehatan Fisik</h2><p>Penilaian risiko kesehatan berdasarkan data antropometri & vital sign</p></div>
+        <div class="grid-2">
+          <div class="card">
+            <div class="card-header"><span class="card-title">Form Skrining</span></div>
+            <div class="card-body">
+              <div class="form-row">
+                <div class="form-group"><label>Nama</label><input type="text" id="sk-nama" placeholder="Nama lengkap"></div>
+                <div class="form-group"><label>Departemen</label><select id="sk-div"><option value="">-- Pilih --</option><option>Maintenance</option><option>QC</option><option>PGA</option><option>Logistik</option><option>FnA</option><option>Procurement</option><option>Produksi RPA</option><option>Produksi RTE</option><option>Produksi RTE (OS)</option><option>Other</option></select></div>
+              </div>
+              <div class="form-row">
+                <div class="form-group"><label>Usia (tahun)</label><input type="number" id="sk-usia" placeholder="32" min="15" max="65"></div>
+                <div class="form-group"><label>Berat Badan (kg)</label><input type="number" id="sk-bb" placeholder="68"></div>
+              </div>
+              <div class="form-row">
+                <div class="form-group"><label>Tinggi Badan (cm)</label><input type="number" id="sk-tb" placeholder="165"></div>
+                <div class="form-group"><label>Sistolik (mmHg)</label><input type="number" id="sk-sis" placeholder="120"></div>
+              </div>
+              <div class="form-row">
+                <div class="form-group"><label>Diastolik (mmHg)</label><input type="number" id="sk-dia" placeholder="80"></div>
+                <div class="form-group"><label>Riwayat Penyakit</label><select id="sk-riw"><option value="Tidak Ada">Tidak Ada</option><option value="Hipertensi">Hipertensi</option><option value="Diabetes">Diabetes Mellitus</option><option value="Jantung">Penyakit Jantung</option><option value="Nyeri Punggung Kronis">Nyeri Punggung Kronis</option><option value="Lainnya">Lainnya</option></select></div>
+              </div>
+              <button class="btn btn-primary btn-full" onclick="prosesS()">⚡ Proses Skrining</button>
+            </div>
+          </div>
+          <div class="card" id="sk-result">
+            <div class="card-header"><span class="card-title">Hasil Penilaian</span></div>
+            <div class="card-body">
+              <div class="empty" id="sk-empty"><span class="e-icon">📊</span>Isi form untuk melihat hasil</div>
+              <div id="sk-content" style="display:none;">
+                <div style="text-align:center;margin-bottom:20px;">
+                  <div id="sk-bmi-circle" style="width:100px;height:100px;border-radius:50%;margin:0 auto 10px;display:flex;flex-direction:column;align-items:center;justify-content:center;border:5px solid;font-family:'Fraunces',serif;">
+                    <div style="font-size:26px;font-weight:800;line-height:1;" id="sk-bmi-val">--</div>
+                    <div style="font-size:10px;font-weight:600;">BMI</div>
+                  </div>
+                  <div style="font-weight:700;font-size:14px;color:var(--primary);" id="sk-bmi-kat">--</div>
+                </div>
+                <div id="sk-risks" style="display:flex;flex-direction:column;gap:8px;margin-bottom:16px;"></div>
+                <div id="sk-rec" style="padding:14px;background:rgba(82,183,136,0.08);border-radius:10px;border-left:3px solid var(--primary-light);font-size:12px;color:var(--text-mid);line-height:1.7;"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card mt16">
+          <div class="card-header"><span class="card-title">Riwayat Skrining</span></div>
+          <div style="overflow-x:auto;"><table class="tbl"><thead><tr><th>Nama</th><th>Departemen</th><th>BMI</th><th>Tekanan Darah</th><th>Risiko</th></tr></thead><tbody id="sk-log"><tr><td colspan="5"><div class="empty">Belum ada data skrining</div></td></tr></tbody></table></div>
+        </div>
+      </div>
+
+      <!-- ─── PEREGANGAN ─── -->
+      <div class="page" id="page-peregangan">
+        <div class="page-header"><h2>🧘 Panduan Peregangan Kerja</h2><p>Lakukan setiap 2 jam selama kerja untuk mencegah nyeri otot & kelelahan</p></div>
+        <div class="timer-box mb24">
+          <div class="timer-txt"><h4>⏱️ Timer Sesi Peregangan</h4><p>Rekomendasikan 5 menit per sesi, setiap 2 jam</p></div>
+          <div class="timer-num" id="t-display">05:00</div>
+          <div class="timer-btns"><button class="btn-t go" id="t-btn" onclick="toggleT()">▶ Mulai</button><button class="btn-t rst" onclick="resetT()">↩ Reset</button></div>
+        </div>
+        <div id="btn-tambah-gerak-wrap" style="display:none;margin-bottom:16px;"><button class="btn btn-success" onclick="showFormGerak()">➕ Tambah Gerakan</button></div>
+        <div id="form-gerak" style="display:none;" class="card mb24">
+          <div class="card-header"><span class="card-title" id="form-gerak-title">Tambah Gerakan Baru</span></div>
+          <div class="card-body">
+            <div class="form-row">
+              <div class="form-group"><label>Nama Gerakan</label><input type="text" id="fg-nama" placeholder="Contoh: Peregangan Pinggang"></div>
+              <div class="form-group"><label>Emoji</label><input type="text" id="fg-emoji" placeholder="🏃" maxlength="4"></div>
+            </div>
+            <div class="form-group"><label>Langkah-langkah (pisahkan dengan baris baru)</label><textarea id="fg-steps" rows="4" placeholder="Berdiri tegak&#10;Miringkan ke kanan&#10;Tahan 10 detik"></textarea></div>
+            <div class="form-group"><label>Durasi & Area Tubuh</label><input type="text" id="fg-dur" placeholder="60 dtk · Pinggang & Punggung"></div>
+            <div style="display:flex;gap:10px;"><button class="btn btn-primary" onclick="simpanGerak()">💾 Simpan</button><button class="btn btn-outline" onclick="document.getElementById('form-gerak').style.display='none'">Batal</button></div>
+          </div>
+        </div>
+        <div class="grid-3" id="gerak-grid"></div>
+      </div>
+
+      <!-- ─── REKAP ─── -->
+      <div class="page" id="page-rekap">
+        <div class="page-header"><h2>📈 Rekap Bulanan</h2><p>Ringkasan data absensi dan kesehatan karyawan bulan ini</p></div>
+        <div class="grid-2 mb24">
+          <div class="card">
+            <div class="card-header"><span class="card-title">Tren Absensi Bulan Ini</span></div>
+            <div class="card-body">
+              <div style="display:flex;gap:16px;margin-bottom:20px;">
+                <div style="flex:1;text-align:center;padding:14px;background:rgba(82,183,136,0.08);border-radius:10px;"><div style="font-family:'Fraunces',serif;font-size:28px;font-weight:800;color:var(--primary-mid);" id="rek-hadir">0</div><div style="font-size:11px;color:var(--text-muted);">Total Hadir</div></div>
+                <div style="flex:1;text-align:center;padding:14px;background:rgba(230,57,70,0.08);border-radius:10px;"><div style="font-family:'Fraunces',serif;font-size:28px;font-weight:800;color:var(--danger);" id="rek-sakit">0</div><div style="font-size:11px;color:var(--text-muted);">Total Sakit</div></div>
+                <div style="flex:1;text-align:center;padding:14px;background:rgba(249,199,79,0.12);border-radius:10px;"><div style="font-family:'Fraunces',serif;font-size:28px;font-weight:800;color:#d4a017;" id="rek-izin">0</div><div style="font-size:11px;color:var(--text-muted);">Total Izin</div></div>
+                <div style="flex:1;text-align:center;padding:14px;background:rgba(173,181,189,0.15);border-radius:10px;"><div style="font-family:'Fraunces',serif;font-size:28px;font-weight:800;color:#6c757d;" id="rek-alpa">0</div><div style="font-size:11px;color:var(--text-muted);">Total Alpa</div></div>
+              </div>
+              <div class="sec-title">Visualisasi Mingguan</div>
+              <div class="bar-chart" id="bar-chart"></div>
+              <div style="display:flex;gap:16px;justify-content:center;margin-top:8px;">
+                <div style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--text-muted);"><div style="width:12px;height:12px;border-radius:3px;background:var(--primary-light);"></div>Hadir</div>
+                <div style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--text-muted);"><div style="width:12px;height:12px;border-radius:3px;background:var(--danger);"></div>Sakit</div>
+                <div style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--text-muted);"><div style="width:12px;height:12px;border-radius:3px;background:var(--accent);"></div>Izin</div>
+              </div>
+            </div>
+          </div>
+          <div class="card"><div class="card-header"><span class="card-title">Ringkasan Keluhan Bulan Ini</span></div><div class="card-body" id="rek-keluhan-summary"><div class="empty"><span class="e-icon">📊</span>Belum ada data keluhan</div></div></div>
+        </div>
+        <div class="card">
+          <div class="card-header"><span class="card-title">Log Absensi Lengkap</span><button class="btn btn-success btn-sm admin-action-btn" onclick="exportAbsensi()">⬇ Export CSV</button></div>
+          <div style="overflow-x:auto;"><table class="tbl"><thead><tr><th>Waktu</th><th>Nama</th><th>Departemen</th><th>Status</th><th>Keterangan</th></tr></thead><tbody id="rek-log"><tr><td colspan="5"><div class="empty">Belum ada data</div></td></tr></tbody></table></div>
+        </div>
+      </div>
+
+      <!-- ─── KASUS SAKIT ─── -->
+      <div class="page" id="page-kasus">
+        <div class="page-header"><h2>🏥 Data Kasus Sakit</h2><p>Rekap diagnosa dan kasus penyakit karyawan untuk analisis K3</p></div>
+        <div id="kasus-admin-form" class="grid-2 mb24">
+          <div class="card">
+            <div class="card-header"><span class="card-title">Tambah Kasus</span></div>
+            <div class="card-body">
+              <div class="form-row">
+                <div class="form-group"><label>Nama Karyawan</label><input type="text" id="ks-nama" placeholder="Nama lengkap"></div>
+                <div class="form-group"><label>Departemen</label><select id="ks-div"><option value="">-- Pilih --</option><option>Maintenance</option><option>QC</option><option>PGA</option><option>Logistik</option><option>FnA</option><option>Procurement</option><option>Produksi RPA</option><option>Produksi RTE</option><option>Produksi RTE (OS)</option><option>Other</option></select></div>
+              </div>
+              <div class="form-group"><label>Diagnosa / Jenis Penyakit</label><select id="ks-diag"><option value="">-- Pilih --</option><option>ISPA / Flu</option><option>Demam Tifoid</option><option>Nyeri Punggung / LBP</option><option>Hipertensi</option><option>Gastritis / Maag</option><option>Dermatitis Kontak</option><option>Kelelahan Kerja</option><option>Cedera Kerja</option><option>Lainnya</option></select></div>
+              <div class="form-row">
+                <div class="form-group"><label>Tanggal Mulai</label><input type="date" id="ks-tgl"></div>
+                <div class="form-group"><label>Jumlah Hari Sakit</label><input type="number" id="ks-hari" placeholder="3" min="1"></div>
+              </div>
+              <div class="form-group"><label>Tindakan</label><select id="ks-tindak"><option>Berobat Mandiri</option><option>Klinik Perusahaan</option><option>Dirujuk ke RS</option><option>Rawat Inap</option></select></div>
+              <button class="btn btn-primary btn-full" onclick="simpanKasus()">💾 Simpan Kasus</button>
+            </div>
+          </div>
+          <div class="card"><div class="card-header"><span class="card-title">Distribusi Kasus Penyakit</span></div><div class="card-body" id="kasus-dist"><div class="empty"><span class="e-icon">🏥</span>Belum ada data kasus</div></div></div>
+        </div>
+        <!-- Karyawan: hanya distribusi -->
+        <div id="kasus-umum-dist" style="display:none;" class="mb24">
+          <div class="card"><div class="card-header"><span class="card-title">Distribusi Kasus Penyakit</span></div><div class="card-body" id="kasus-dist-umum"><div class="empty"><span class="e-icon">🏥</span>Belum ada data kasus</div></div></div>
+        </div>
+        <div class="card">
+          <div class="card-header"><span class="card-title">Log Semua Kasus</span></div>
+          <div style="overflow-x:auto;"><table class="tbl"><thead><tr><th>Tanggal</th><th>Nama</th><th>Departemen</th><th>Diagnosa</th><th>Hari Sakit</th><th>Tindakan</th></tr></thead><tbody id="ks-log"><tr><td colspan="6"><div class="empty">Belum ada data kasus</div></td></tr></tbody></table></div>
+        </div>
+      </div>
+
+      <!-- ─── DYNAMIC INFO PAGES ─── (rendered by JS) -->
+      <div id="dynamic-pages"></div>
+
+    </main>
+  </div>
+</div>
+
+<!-- ─── MODAL: Tambah Menu ─── -->
+<div class="modal-overlay" id="modal-tambah-menu">
+  <div class="modal-box">
+    <h3 id="modal-menu-title">Tambah Menu Baru</h3>
+    <div class="form-group"><label>Nama Menu</label><input type="text" id="mm-nama" placeholder="Contoh: Prosedur Evakuasi"></div>
+    <div class="form-group"><label>Emoji / Ikon</label><input type="text" id="mm-emoji" placeholder="🚨" maxlength="4"></div>
+    <div class="modal-actions">
+      <button class="btn btn-outline" onclick="closeModal('modal-tambah-menu')">Batal</button>
+      <button class="btn btn-success" onclick="simpanMenuBaru()">✅ Tambah Menu</button>
+    </div>
+  </div>
+</div>
+
+<!-- ─── MODAL: Tambah Berita ─── -->
+<div class="modal-overlay" id="modal-berita">
+  <div class="modal-box">
+    <h3 id="modal-berita-title">Tambah Berita</h3>
+    <div class="form-group"><label>Judul Berita</label><input type="text" id="mb-judul" placeholder="Contoh: Pembaruan SOP K3 2025"></div>
+    <div class="form-group"><label>Sumber</label><input type="text" id="mb-src" placeholder="Contoh: Kemenaker, HSE Internal"></div>
+    <div class="form-group"><label>URL Berita (opsional)</label><input type="text" id="mb-url" placeholder="https://..."></div>
+    <div class="form-group"><label>Ringkasan</label><textarea id="mb-isi" rows="3" placeholder="Tulis ringkasan berita..."></textarea></div>
+    <div class="modal-actions">
+      <button class="btn btn-outline" onclick="closeModal('modal-berita')">Batal</button>
+      <button class="btn btn-success" onclick="simpanBerita()">💾 Simpan Berita</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════
+// GOOGLE SHEETS INTEGRATION
+// Ganti URL di bawah ini dengan URL Apps Script kamu
+// (lihat panduan di file sigap-k3-apps-script.js)
+// ═══════════════════════════════════════════
+const APPS_SCRIPT_URL = 'ISI_URL_DISINI';
+
+// Kirim data ke Google Sheets (background, tidak memblok UI)
+async function gs(action, payload) {
+  if (!APPS_SCRIPT_URL || APPS_SCRIPT_URL === 'ISI_URL_DISINI') return; // belum disetup
+  try {
+    await fetch(APPS_SCRIPT_URL, {
+      method: 'POST',
+      body: JSON.stringify({ action, payload }),
+    });
+  } catch(e) {
+    console.warn('Google Sheets sync gagal:', e);
+  }
+}
+
+// Load semua data dari Sheets saat login (jika URL sudah diisi)
+async function loadDariSheets() {
+  if (!APPS_SCRIPT_URL || APPS_SCRIPT_URL === 'ISI_URL_DISINI') return false;
+  try {
+    showToast('⏳ Memuat data dari Google Sheets...');
+    const res  = await fetch(APPS_SCRIPT_URL);
+    const data = await res.json();
+    if (!data.ok) return false;
+
+    // Absensi — ambil total hadir dari baris TOTAL HADIR terbaru
+    if (data.absensi?.length) {
+      const totalRow = [...data.absensi].reverse().find(r => r['Status'] === 'TOTAL HADIR');
+      if (totalRow) {
+        STATE.totalKaryawan = parseInt(totalRow['Total Karyawan']) || 0;
+        STATE.totalHadir    = parseInt(totalRow['Jumlah Hadir'])   || 0;
+      }
+      STATE.absensi = data.absensi
+        .filter(r => r['Status'] !== 'TOTAL HADIR' && r['Nama'] !== '-')
+        .map(r => ({
+          time: r['Timestamp']?.split(' ')[1] || '',
+          tanggal: r['Tanggal'] || '',
+          nama: r['Nama'] || '',
+          div:  r['Departemen'] || '',
+          status: r['Status'] || '',
+          ket: r['Alasan'] || '',
+        }));
+    }
+
+    // Keluhan
+    if (data.keluhan?.length) {
+      STATE.keluhanList = data.keluhan.map(r => ({
+        time: r['Timestamp']?.split(' ')[1] || '',
+        div:  r['Departemen'] || '',
+        keluhan: r['Keluhan'] || '',
+        sev:  r['Keparahan'] || '',
+        ket:  r['Keterangan'] || '',
+        status: r['Status'] || 'Menunggu',
+      }));
+    }
+
+    // Kasus
+    if (data.kasus?.length) {
+      STATE.kasus = data.kasus.map(r => ({
+        nama:   r['Nama Karyawan'] || '',
+        div:    r['Departemen']    || '',
+        diag:   r['Diagnosa']      || '',
+        tgl:    r['Tanggal Mulai'] || '',
+        hari:   r['Hari Sakit']    || '',
+        tindak: r['Tindakan']      || '',
+      }));
+    }
+
+    // Berita
+    if (data.berita?.length) {
+      STATE.berita = data.berita.map(r => ({
+        judul: r['Judul'] || '',
+        src:   r['Sumber'] || '',
+        url:   r['URL']    || '',
+        isi:   r['Ringkasan'] || '',
+        tgl:   r['Tanggal']   || '',
+      }));
+    }
+
+    // Tips
+    if (data.tips?.length) {
+      STATE.tips = data.tips.map(r => ({
+        emoji: r['Emoji'] || '💡',
+        judul: r['Judul'] || '',
+        isi:   r['Isi']   || '',
+        warna: 'rgba(82,183,136,0.08)', border: 'var(--primary-light)',
+      }));
+    }
+
+    // Gerakan
+    if (data.gerakan?.length) {
+      STATE.gerakan = data.gerakan.map(r => ({
+        nama:  r['Nama Gerakan'] || '',
+        emoji: r['Emoji']        || '🧘',
+        steps: (r['Langkah-langkah'] || '').split(' | ').filter(Boolean),
+        dur:   r['Durasi']       || '',
+      }));
+    }
+
+    // Info Pages
+    if (data.infoPages?.length) {
+      const grouped = {};
+      data.infoPages.forEach(r => {
+        const pid = r['Page ID'];
+        if (!grouped[pid]) grouped[pid] = [];
+        grouped[pid].push({
+          tag:   r['Tag']   || '',
+          emoji: r['Emoji'] || '',
+          judul: r['Judul'] || '',
+          isi:   r['Isi']   || '',
+        });
+      });
+      Object.assign(STATE.infoPages, grouped);
+    }
+
+    return true;
+  } catch(e) {
+    console.warn('Gagal load dari Sheets:', e);
+    return false;
+  }
+}
+
+// ═══════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════
+const DEPTS = ['Maintenance','QC','PGA','Logistik','FnA','Procurement','Produksi RPA','Produksi RTE','Produksi RTE (OS)','Other'];
+
+let STATE = {
+  role: 'admin',
+  absensi: [],
+  keluhanList: [],
+  keluhanLingkungan: [],
+  skrining: [],
+  kasus: [],
+  totalHadir: 0,
+  totalKaryawan: 0,
+  berita: [],
+  editBeritaIdx: -1,
+  menuTambahTarget: 'utama',
+  customMenus: [], // {id, nama, emoji, section:'utama'|'info', konten:[]}
+  tips: [
+    { emoji:'💧', judul:'Hidrasi Cukup', isi:'Minum min. 250ml air per jam di area produksi bersuhu tinggi. Urin gelap = tanda dehidrasi.', warna:'rgba(82,183,136,0.08)', border:'var(--primary-light)' },
+    { emoji:'🧤', judul:'APD Lengkap', isi:'Pastikan sarung tangan, sepatu safety & hairnet terpasang sebelum masuk area produksi.', warna:'rgba(249,199,79,0.1)', border:'var(--accent)' },
+    { emoji:'🧘', judul:'Peregangan Rutin', isi:'Lakukan stretching 5 menit setiap 2 jam untuk mencegah nyeri punggung dan kelelahan otot.', warna:'rgba(230,57,70,0.07)', border:'var(--danger)' },
+  ],
+  gerakan: [
+    { nama:'Peregangan Leher', emoji:'🙆', steps:['Duduk/berdiri tegak, rilekskan bahu','Miringkan kepala ke kanan, tahan 15 detik','Ulangi ke kiri 15 detik','Putar kepala perlahan 3× tiap arah'], dur:'60 dtk · Leher & Bahu' },
+    { nama:'Peregangan Bahu', emoji:'💪', steps:['Angkat bahu ke atas sedekat telinga','Tahan 5 detik, turun dan rileks','Putar bahu ke belakang 5 kali','Putar ke depan 5 kali'], dur:'45 dtk · Bahu & Trapezius' },
+    { nama:'Peregangan Punggung', emoji:'🏋️', steps:['Berdiri, kaitkan jari di atas kepala','Regangkan ke atas, tahan 10 detik','Miringkan kanan-kiri 10 detik masing-masing','Ulangi 3 kali'], dur:'60 dtk · Punggung & Pinggang' },
+    { nama:'Peregangan Tangan', emoji:'🤲', steps:['Luruskan lengan, telapak menghadap atas','Tarik jari ke bawah, tahan 15 detik','Balik, tarik jari ke atas 15 detik','Putar pergelangan 5× tiap arah'], dur:'60 dtk · Pergelangan & Lengan' },
+    { nama:'Peregangan Kaki', emoji:'🦵', steps:['Berdiri, pegang sandaran untuk keseimbangan','Angkat tumit setinggi mungkin, tahan 5 detik','Turunkan, angkat ujung kaki, tahan 5 detik','Ulangi 10 kali'], dur:'60 dtk · Betis & Kaki' },
+    { nama:'Relaksasi Mata', emoji:'👁️', steps:['Tutup mata, telapak hangat di atas mata','Tarik napas dalam 3 kali','Buka, fokus benda jauh ≥6m selama 20 detik','Kedipkan 10 kali'], dur:'45 dtk · Mata & Relaksasi' },
+  ],
+  infoPages: {
+    p3k: [
+      { tag:'Luka & Pendarahan', emoji:'🩹', judul:'Penanganan Luka & Pendarahan', isi:'1. Gunakan sarung tangan sekali pakai sebelum menyentuh luka.\n2. Bersihkan luka dengan air bersih mengalir selama 1-2 menit.\n3. Tekan luka dengan kain bersih/kasa steril sampai pendarahan berhenti.\n4. Tutup dengan plester atau perban steril.\n5. Jika pendarahan tidak berhenti dalam 10 menit → segera bawa ke klinik.' },
+      { tag:'Pingsan', emoji:'😵', judul:'Penanganan Pingsan', isi:'1. Baringkan korban di tempat aman, posisi telentang.\n2. Kendorkan pakaian di sekitar leher dan dada.\n3. Angkat kaki setinggi 30 cm (posisi kaki lebih tinggi dari kepala).\n4. Pastikan ada sirkulasi udara yang cukup.\n5. Jangan beri makan/minum saat masih pingsan.\n6. Jika tidak sadar > 2 menit → hubungi klinik segera.' },
+      { tag:'Terkena Bahan Kimia', emoji:'⚗️', judul:'Paparan Bahan Kimia', isi:'1. Bilas area terkena dengan air mengalir minimal 15-20 menit.\n2. Jangan menggosok area yang terkena.\n3. Lepas pakaian yang terkontaminasi (dengan APD).\n4. Untuk mata: bilas dengan eyewash station terdekat.\n5. Segera bawa ke klinik dan bawa MSDS bahan kimia tersebut.' },
+      { tag:'Luka Bakar', emoji:'🔥', judul:'Penanganan Luka Bakar', isi:'1. Dinginkan area luka bakar dengan air mengalir selama 10-20 menit.\n2. JANGAN gunakan es, odol, kecap, atau bahan lain.\n3. Tutup dengan kain bersih yang lembab.\n4. Jangan pecahkan lepuhan/bula yang terbentuk.\n5. Luka bakar > telapak tangan atau di wajah/tangan → langsung ke klinik.' },
+    ],
+    obat: [
+      { tag:'Analgesik', emoji:'💊', judul:'Obat Pereda Nyeri', isi:'• Paracetamol 500mg — demam & nyeri ringan-sedang\n• Ibuprofen 400mg — nyeri otot, sendi, anti-inflamasi\n• Asam Mefenamat 500mg — nyeri sedang, haid\n\nCatatan: Tidak untuk lambung kosong. Konsultasi klinik jika nyeri berlanjut.' },
+      { tag:'Pencernaan', emoji:'🫶', judul:'Obat Pencernaan', isi:'• Antasida (Mylanta/Promag) — maag, nyeri ulu hati\n• Metoklopramid — mual & muntah\n• Attapulgite (Norit) — diare akut\n• Antasida Doen — kembung, dyspepsia\n\nCatatan: Simpan obat di suhu kamar, jauh dari paparan panas.' },
+      { tag:'P3K Dasar', emoji:'🩺', judul:'Perlengkapan P3K Kotak', isi:'• Plester berbagai ukuran\n• Kasa steril & perban elastis\n• Betadine (Povidone Iodine) — antiseptik luka\n• Alkohol 70% — sterilisasi alat\n• Sarung tangan lateks\n• Gunting & pinset\n• Termometer digital\n\nCek kotak P3K setiap minggu — lapor ke HSE jika ada yang habis.' },
+    ]
+  }
+};
+
+let selKeluhan = '', selSev = '';
+let timerSec = 300, timerOn = false, timerInt = null;
+let editGerakIdx = -1;
+const pageTitles = {
+  dashboard:'Dashboard', absensi:'Absensi Harian', keluhan:'Laporan Keluhan',
+  skrining:'Skrining Kesehatan', peregangan:'Panduan Peregangan',
+  rekap:'Rekap Bulanan', kasus:'Data Kasus Sakit',
+  p3k:'Pertolongan Pertama', obat:'Obat-obatan'
+};
+
+// ═══════════════════════════════════════════
+// LOGIN
+// ═══════════════════════════════════════════
+function setRole(r, el) {
+  STATE.role = r;
+  document.querySelectorAll('.login-tab').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+}
+
+function doLogin() {
+  const u = document.getElementById('l-user').value.trim();
+  const p = document.getElementById('l-pass').value.trim();
+  const admins = {admin:'admin123', hse:'hse2024', supervisor:'spv123'};
+  const users = {karyawan:'k3pabrik', pekerja:'pekerja123'};
+  if (STATE.role==='admin' && admins[u]===p) loginAs('admin',u);
+  else if (STATE.role==='umum' && users[u]===p) loginAs('umum',u);
+  else showToast('❌ Username atau password salah!');
+}
+
+async function loginAs(role, user) {
+  STATE.role = role;
+  document.getElementById('login-screen').style.display = 'none';
+  document.getElementById('app').style.display = 'block';
+  document.getElementById('s-role-icon').textContent = role==='admin'?'👔':'👷';
+  document.getElementById('s-role-txt').textContent = role==='admin'?'Admin / HSE':'Karyawan';
+
+  // Admin-only: manajemen section, edit buttons, add-menu bars
+  const adminOnlyIds = ['s-admin-section','nav-add-bar','nav-add-info-bar','btn-tambah-berita','btn-edit-tips','btn-tambah-gerak-wrap','btn-edit-p3k','btn-edit-obat'];
+  adminOnlyIds.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.style.display = role==='admin' ? '' : 'none';
+  });
+
+  // Karyawan: sembunyikan tombol aksi di rekap & kasus
+  ['btn-export-rekap','btn-export-absensi-rekap','btn-tambah-kasus-form'].forEach(id=>{
+    const el=document.getElementById(id);
+    if (el) el.style.display=role==='admin'?'':'none';
+  });
+  document.querySelectorAll('.admin-action-btn').forEach(el=>{
+    el.style.display=role==='admin'?'':'none';
+  });
+  document.getElementById('absensi-admin-content').style.display = role==='admin'?'block':'none';
+  document.getElementById('absensi-umum-content').style.display = role==='umum'?'block':'none';
+  // Kasus: admin gets form+dist, karyawan gets dist-only (read-only)
+  document.getElementById('kasus-admin-form').style.display = role==='admin'?'':'none';
+  document.getElementById('kasus-umum-dist').style.display = role==='umum'?'':'none';
+  // Label "Manajemen" di sidebar hanya untuk admin
+  const adminSection = document.getElementById('s-admin-section');
+  if (adminSection) adminSection.style.display = role==='admin'?'':'none';
+
+  initDate();
+  loadWeather();
+
+  // ── Load data dari Google Sheets ──
+  const loaded = await loadDariSheets();
+
+  renderTips();
+  renderGerakan();
+  renderInfoPage('p3k');
+  renderInfoPage('obat');
+  renderNews();
+  buildBarChart();
+  renderCustomMenus();
+  updateDashboard();
+
+  if (loaded) showToast('✅ Selamat datang, ' + user + '! Data berhasil dimuat.');
+  else showToast('✅ Selamat datang, ' + user + '!');
+}
+
+function doLogout() {
+  document.getElementById('app').style.display = 'none';
+  document.getElementById('login-screen').style.display = 'flex';
+  document.getElementById('l-user').value = '';
+  document.getElementById('l-pass').value = '';
+}
+
+// ═══════════════════════════════════════════
+// NAVIGATION
+// ═══════════════════════════════════════════
+function goPage(id) {
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  const page = document.getElementById('page-'+id);
+  if (page) page.classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(b=>{
+    if (b.getAttribute('onclick')?.includes("'"+id+"'")) b.classList.add('active');
+  });
+  document.getElementById('page-title').textContent = pageTitles[id] || id;
+  if (id==='rekap') updateRekap();
+  if (id==='kasus') updateKasusDist();
+  if (id==='dashboard') updateDashboard();
+}
+
+// ═══════════════════════════════════════════
+// DATE / TIME
+// ═══════════════════════════════════════════
+function initDate() {
+  const opts = { weekday:'long', year:'numeric', month:'long', day:'numeric' };
+  const str = new Date().toLocaleDateString('id-ID', opts);
+  document.getElementById('page-date').textContent = str;
+  document.getElementById('date-pill').textContent = str;
+  setInterval(()=>{
+    const n = new Date();
+    document.getElementById('date-pill').textContent = n.toLocaleDateString('id-ID',opts)+' '+n.toLocaleTimeString('id-ID',{hour:'2-digit',minute:'2-digit'});
+  }, 30000);
+}
+
+// ═══════════════════════════════════════════
+// WEATHER — Wonoayu, Sidoarjo + Refresh button
+// ═══════════════════════════════════════════
+async function loadWeather() {
+  const btn = document.querySelector('.btn-weather-refresh');
+  if (btn) btn.textContent = '⏳ Memuat...';
+  const API_KEY = 'APIKEY_ANDA';
+  const LAT = '-7.4583';
+  const LON = '112.6333';
+  try {
+    const res = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${LAT}&lon=${LON}&appid=${API_KEY}&units=metric&lang=id`);
+    if (!res.ok) throw new Error('API error');
+    const data = await res.json();
+    const iconMap = {'01d':'☀️','01n':'🌙','02d':'⛅','02n':'⛅','03d':'☁️','03n':'☁️','04d':'☁️','04n':'☁️','09d':'🌧️','09n':'🌧️','10d':'🌦️','10n':'🌦️','11d':'⛈️','11n':'⛈️','13d':'🌨️','13n':'🌨️','50d':'🌫️','50n':'🌫️'};
+    const icon = iconMap[data.weather[0].icon]||'🌤️';
+    const temp = Math.round(data.main.temp);
+    const cond = data.weather[0].description.charAt(0).toUpperCase()+data.weather[0].description.slice(1);
+    setWeatherUI(icon, temp, cond, data.main.humidity, Math.round(data.wind.speed*3.6));
+  } catch(e) {
+    const sims = [{icon:'⛅',temp:31,cond:'Berawan Sebagian',hum:72,wind:14},{icon:'☀️',temp:33,cond:'Cerah',hum:65,wind:10},{icon:'🌧️',temp:27,cond:'Hujan Ringan',hum:88,wind:18},{icon:'🌤️',temp:30,cond:'Cerah Berawan',hum:70,wind:12}];
+    const w = sims[Math.floor(Math.random()*sims.length)];
+    setWeatherUI(w.icon, w.temp, w.cond, w.hum, w.wind);
+  }
+  if (btn) btn.textContent = '↻ Refresh Cuaca';
+}
+
+function setWeatherUI(icon, temp, cond, hum, wind) {
+  document.getElementById('w-icon').textContent = icon;
+  document.getElementById('w-temp').textContent = temp+'°C';
+  document.getElementById('w-cond').textContent = cond;
+  document.getElementById('w-hum').textContent = hum+'%';
+  document.getElementById('w-wind').textContent = wind+' km/h';
+  document.getElementById('w-city').textContent = 'Wonoayu, Sidoarjo';
+  document.getElementById('weather-pill').innerHTML = icon+' '+temp+'°C · '+cond;
+  if (temp>=32) {
+    document.getElementById('weather-pill').style.background='rgba(249,199,79,0.2)';
+    document.getElementById('weather-pill').style.borderColor='var(--accent)';
+  }
+}
+
+// ═══════════════════════════════════════════
+// NEWS — Admin managed
+// ═══════════════════════════════════════════
+function renderNews() {
+  const c = document.getElementById('news-container');
+  if (!STATE.berita.length) {
+    c.innerHTML = STATE.role==='admin'
+      ? '<div class="empty"><span class="e-icon">📰</span>Belum ada berita. Klik "+ Tambah Berita" untuk menambahkan.</div>'
+      : '<div class="empty"><span class="e-icon">📰</span>Belum ada berita dari Admin.</div>';
+    return;
+  }
+  c.innerHTML = STATE.berita.map((n,i) => `
+    <div class="news-item">
+      <div class="news-num">0${i+1}</div>
+      <div style="flex:1;">
+        <div class="news-title" ${n.url?`style="cursor:pointer;color:var(--primary);" onclick="window.open('${n.url}','_blank')"`:``}>${n.judul} ${n.url?'<span style="font-size:10px;color:var(--primary-light);">↗</span>':''}</div>
+        <div class="news-meta">${n.src} · ${n.tgl}</div>
+        ${n.isi ? `<div style="font-size:12px;color:var(--text-mid);margin-top:4px;line-height:1.5;">${n.isi}</div>` : ''}
+      </div>
+      ${STATE.role==='admin' ? `<div style="display:flex;flex-direction:column;gap:4px;">
+        <button class="btn btn-outline btn-sm" onclick="editBerita(${i})">✏️</button>
+        <button class="btn btn-danger btn-sm" onclick="hapusBerita(${i})">🗑</button>
+      </div>` : ''}
+    </div>`).join('');
+}
+
+function showModalBerita(idx) {
+  STATE.editBeritaIdx = idx !== undefined ? idx : -1;
+  document.getElementById('modal-berita-title').textContent = idx!==undefined ? 'Edit Berita' : 'Tambah Berita Baru';
+  const n = idx!==undefined ? STATE.berita[idx] : {};
+  document.getElementById('mb-judul').value = n.judul||'';
+  document.getElementById('mb-src').value = n.src||'';
+  document.getElementById('mb-url').value = n.url||'';
+  document.getElementById('mb-isi').value = n.isi||'';
+  document.getElementById('modal-berita').classList.add('open');
+}
+function editBerita(i) { showModalBerita(i); }
+function hapusBerita(i) {
+  if (!confirm('Hapus berita ini?')) return;
+  STATE.berita.splice(i,1);
+  renderNews();
+  gs('simpanBerita', { semua: STATE.berita });
+  showToast('🗑 Berita dihapus');
+}
+function simpanBerita() {
+  const judul = document.getElementById('mb-judul').value.trim();
+  if (!judul) { showToast('⚠️ Isi judul berita'); return; }
+  const berita = {
+    judul, src: document.getElementById('mb-src').value.trim()||'Admin HSE',
+    url: document.getElementById('mb-url').value.trim(),
+    isi: document.getElementById('mb-isi').value.trim(),
+    tgl: new Date().toLocaleDateString('id-ID',{day:'numeric',month:'short',year:'numeric'})
+  };
+  if (STATE.editBeritaIdx>=0) STATE.berita[STATE.editBeritaIdx]=berita;
+  else STATE.berita.unshift(berita);
+  closeModal('modal-berita');
+  renderNews();
+  gs('simpanBerita', { semua: STATE.berita });
+  showToast('✅ Berita berhasil disimpan!');
+}
+
+// ═══════════════════════════════════════════
+// TIPS — Admin editable
+// ═══════════════════════════════════════════
+function renderTips() {
+  const colors = ['rgba(82,183,136,0.08)','rgba(249,199,79,0.1)','rgba(230,57,70,0.07)','rgba(52,131,219,0.08)','rgba(243,114,44,0.08)'];
+  const borders = ['var(--primary-light)','var(--accent)','var(--danger)','#4361ee','var(--accent2)'];
+  document.getElementById('tips-display').innerHTML = STATE.tips.map((t,i)=>`
+    <div style="padding:16px;background:${t.warna||colors[i%colors.length]};border-radius:12px;border-left:3px solid ${t.border||borders[i%borders.length]};">
+      <div style="font-size:24px;margin-bottom:8px;">${t.emoji}</div>
+      <div style="font-size:13px;font-weight:700;color:var(--primary);margin-bottom:4px;">${t.judul}</div>
+      <div style="font-size:12px;color:var(--text-mid);line-height:1.6;">${t.isi}</div>
+    </div>`).join('');
+}
+
+function toggleEditTips() {
+  const disp = document.getElementById('tips-display');
+  const ed = document.getElementById('tips-editor');
+  const btn = document.getElementById('btn-edit-tips');
+  if (ed.style.display==='none') {
+    ed.style.display='block'; disp.style.display='none'; btn.textContent='✕ Tutup Editor';
+    document.getElementById('tips-editor-list').innerHTML = STATE.tips.map((t,i)=>`
+      <div style="background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:8px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;"><strong style="font-size:13px;">Tips ${i+1}</strong><button class="btn btn-danger btn-sm" onclick="hapusTips(${i})">🗑 Hapus</button></div>
+        <div style="display:flex;gap:8px;"><input style="width:60px;padding:8px;border:1.5px solid var(--border);border-radius:8px;font-size:16px;text-align:center;" value="${t.emoji}" id="tip-emoji-${i}"><input style="flex:1;padding:8px 12px;border:1.5px solid var(--border);border-radius:8px;font-size:13px;" value="${t.judul}" id="tip-judul-${i}"></div>
+        <textarea style="width:100%;padding:8px 12px;border:1.5px solid var(--border);border-radius:8px;font-size:12px;resize:none;" rows="2" id="tip-isi-${i}">${t.isi}</textarea>
+      </div>`).join('')+`<button class="btn btn-outline" onclick="tambahTipsBaru()">➕ Tambah Tips Baru</button>`;
+  } else {
+    ed.style.display='none'; disp.style.display=''; btn.textContent='✏️ Edit Tips';
+  }
+}
+function simpanTips() {
+  STATE.tips = STATE.tips.map((t,i)=>({...t, emoji:document.getElementById('tip-emoji-'+i)?.value||t.emoji, judul:document.getElementById('tip-judul-'+i)?.value||t.judul, isi:document.getElementById('tip-isi-'+i)?.value||t.isi}));
+  toggleEditTips(); renderTips();
+  gs('simpanTips', { semua: STATE.tips });
+  showToast('✅ Tips berhasil disimpan!');
+}
+function hapusTips(i) { STATE.tips.splice(i,1); toggleEditTips(); setTimeout(()=>toggleEditTips(),50); }
+function tambahTipsBaru() { STATE.tips.push({emoji:'💡',judul:'Tips Baru',isi:'Isi konten tips di sini.',warna:'rgba(82,183,136,0.08)',border:'var(--primary-light)'}); toggleEditTips(); setTimeout(()=>toggleEditTips(),50); }
+
+// ═══════════════════════════════════════════
+// INFO PAGES (P3K, OBAT) — Admin editable
+// ═══════════════════════════════════════════
+function renderInfoPage(pageId) {
+  const container = document.getElementById(pageId+'-content');
+  if (!container) return;
+  const items = STATE.infoPages[pageId] || [];
+  const isAdmin = STATE.role==='admin';
+  if (!items.length) {
+    container.innerHTML = '<div class="card"><div class="card-body"><div class="empty"><span class="e-icon">📝</span>Belum ada konten. Admin dapat menambahkan.</div></div></div>';
+    return;
+  }
+  container.innerHTML = items.map((item,i)=>`
+    <div class="info-card">
+      ${isAdmin ? `<div style="position:absolute;top:12px;right:12px;display:flex;gap:6px;"><button class="btn btn-outline btn-sm" onclick="editInfoItem('${pageId}',${i})">✏️</button><button class="btn btn-danger btn-sm" onclick="hapusInfoItem('${pageId}',${i})">🗑</button></div>` : ''}
+      <span class="info-tag">${item.tag||''}</span>
+      <h4>${item.emoji||''} ${item.judul}</h4>
+      <div style="white-space:pre-line;font-size:13px;color:var(--text-mid);line-height:1.8;">${item.isi}</div>
+    </div>`).join('');
+
+  if (isAdmin) {
+    container.innerHTML += `<button class="btn btn-success" onclick="tambahInfoItem('${pageId}')">➕ Tambah Konten</button>`;
+  }
+}
+
+let editInfoTarget = null;
+let editInfoIdx = -1;
+let infoFormContainer = null;
+
+function tambahInfoItem(pageId) {
+  editInfoTarget = pageId;
+  editInfoIdx = -1;
+  showInfoForm(pageId, {});
+}
+function editInfoItem(pageId, i) {
+  editInfoTarget = pageId;
+  editInfoIdx = i;
+  showInfoForm(pageId, STATE.infoPages[pageId][i]);
+}
+function showInfoForm(pageId, data) {
+  const container = document.getElementById(pageId+'-content');
+  const formId = 'form-info-'+pageId;
+  const existing = document.getElementById(formId);
+  if (existing) existing.remove();
+  const div = document.createElement('div');
+  div.id = formId;
+  div.className = 'card mb24';
+  div.innerHTML = `<div class="card-header"><span class="card-title">${editInfoIdx>=0?'Edit':'Tambah'} Konten</span></div>
+    <div class="card-body">
+      <div class="form-row"><div class="form-group"><label>Emoji</label><input type="text" id="if-emoji" value="${data.emoji||''}" maxlength="4"></div><div class="form-group"><label>Tag / Kategori</label><input type="text" id="if-tag" value="${data.tag||''}" placeholder="Contoh: Luka & Pendarahan"></div></div>
+      <div class="form-group"><label>Judul</label><input type="text" id="if-judul" value="${data.judul||''}" placeholder="Judul konten"></div>
+      <div class="form-group"><label>Isi (bisa gunakan enter untuk baris baru)</label><textarea id="if-isi" rows="6">${data.isi||''}</textarea></div>
+      <div style="display:flex;gap:10px;"><button class="btn btn-primary" onclick="simpanInfoItem('${pageId}')">💾 Simpan</button><button class="btn btn-outline" onclick="document.getElementById('${formId}').remove();renderInfoPage('${pageId}')">Batal</button></div>
+    </div>`;
+  container.insertBefore(div, container.firstChild);
+  div.scrollIntoView({behavior:'smooth'});
+}
+function simpanInfoItem(pageId) {
+  const judul = document.getElementById('if-judul').value.trim();
+  if (!judul) { showToast('⚠️ Isi judul'); return; }
+  const item = { emoji:document.getElementById('if-emoji').value.trim(), tag:document.getElementById('if-tag').value.trim(), judul, isi:document.getElementById('if-isi').value.trim() };
+  if (!STATE.infoPages[pageId]) STATE.infoPages[pageId] = [];
+  if (editInfoIdx>=0) STATE.infoPages[pageId][editInfoIdx]=item;
+  else STATE.infoPages[pageId].push(item);
+  renderInfoPage(pageId);
+  gs('simpanInfoPage', { pageId, namaHalaman: pageId, items: STATE.infoPages[pageId] });
+  showToast('✅ Konten berhasil disimpan!');
+}
+function hapusInfoItem(pageId, i) {
+  if (!confirm('Hapus konten ini?')) return;
+  STATE.infoPages[pageId].splice(i,1);
+  renderInfoPage(pageId);
+  showToast('🗑 Konten dihapus');
+}
+
+// Edit button toggle for fixed pages (p3k, obat)
+function toggleEditInfoPage(pageId) {
+  renderInfoPage(pageId);
+}
+
+// ═══════════════════════════════════════════
+// CUSTOM MENUS — Admin can add/remove menus
+// ═══════════════════════════════════════════
+function showModalTambahMenu(section) {
+  STATE.menuTambahTarget = section;
+  document.getElementById('modal-menu-title').textContent = section==='utama' ? 'Tambah Menu Utama Baru' : 'Tambah Informasi Lain';
+  document.getElementById('mm-nama').value = '';
+  document.getElementById('mm-emoji').value = '';
+  document.getElementById('modal-tambah-menu').classList.add('open');
+}
+
+function simpanMenuBaru() {
+  const nama = document.getElementById('mm-nama').value.trim();
+  const emoji = document.getElementById('mm-emoji').value.trim()||'📄';
+  if (!nama) { showToast('⚠️ Isi nama menu'); return; }
+  const id = 'custom-'+Date.now();
+  STATE.customMenus.push({ id, nama, emoji, section: STATE.menuTambahTarget, konten:[] });
+  pageTitles[id] = nama;
+  STATE.infoPages[id] = [];
+  renderCustomMenus();
+  closeModal('modal-tambah-menu');
+  showToast('✅ Menu "'+nama+'" berhasil ditambahkan!');
+}
+
+function renderCustomMenus() {
+  // Sidebar nav for utama
+  const utamaContainer = document.getElementById('nav-menu-utama');
+  // Remove existing custom nav items
+  utamaContainer.querySelectorAll('.custom-nav').forEach(e=>e.remove());
+  // Sidebar nav for info
+  const infoContainer = document.getElementById('nav-info-lain');
+  infoContainer.innerHTML = '';
+  // Dynamic pages container
+  const dynPages = document.getElementById('dynamic-pages');
+  dynPages.innerHTML = '';
+
+  STATE.customMenus.forEach(m => {
+    // Nav button
+    const btn = document.createElement('button');
+    btn.className = 'nav-item' + (m.section==='utama'?' custom-nav':'');
+    btn.id = 'navbtn-'+m.id;
+    btn.innerHTML = `<span class="ni">${m.emoji}</span><span>${m.nama}</span>`;
+    btn.onclick = ()=>goPage(m.id);
+    if (m.section==='utama') utamaContainer.appendChild(btn);
+    else infoContainer.appendChild(btn);
+
+    // Delete button (admin only, in nav area)
+    if (STATE.role==='admin') {
+      const delBtn = document.createElement('button');
+      delBtn.className = 'nav-item';
+      delBtn.style.cssText = 'color:rgba(230,100,100,0.7);font-size:11px;padding:4px 20px;';
+      delBtn.innerHTML = `<span class="ni">🗑</span><span>Hapus "${m.nama}"</span>`;
+      delBtn.onclick = ()=>hapusMenu(m.id);
+      if (m.section==='utama') utamaContainer.appendChild(delBtn);
+      else infoContainer.appendChild(delBtn);
+    }
+
+    // Page
+    const page = document.createElement('div');
+    page.className = 'page';
+    page.id = 'page-'+m.id;
+    page.innerHTML = `
+      <div class="page-header">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+          <div><h2>${m.emoji} ${m.nama}</h2><p>Informasi & panduan</p></div>
+          ${STATE.role==='admin'?`<button class="btn btn-success" onclick="tambahInfoItem('${m.id}')">➕ Tambah Konten</button>`:''}
+        </div>
+      </div>
+      <div id="${m.id}-content"></div>`;
+    dynPages.appendChild(page);
+    renderInfoPage(m.id);
+  });
+
+  // Show info section if there are info menus
+  const s = document.getElementById('s-info-section');
+  if (s) s.style.display = STATE.customMenus.some(m=>m.section==='info') ? '' : 'none';
+}
+
+function hapusMenu(id) {
+  if (!confirm('Hapus menu ini beserta semua kontennya?')) return;
+  STATE.customMenus = STATE.customMenus.filter(m=>m.id!==id);
+  delete STATE.infoPages[id];
+  delete pageTitles[id];
+  renderCustomMenus();
+  goPage('dashboard');
+  showToast('🗑 Menu berhasil dihapus');
+}
+
+// ═══════════════════════════════════════════
+// ABSENSI
+// ═══════════════════════════════════════════
+function hitungAlpa() {
+  const total = parseInt(document.getElementById('ab-total').value)||0;
+  const hadir = parseInt(document.getElementById('ab-jml-hadir').value)||0;
+  const tidakMasuk = Math.max(0,total-hadir);
+  const sakit = STATE.absensi.filter(a=>a.status==='Sakit').length;
+  const izin = STATE.absensi.filter(a=>a.status==='Izin').length;
+  const alpa = Math.max(0,tidakMasuk-sakit-izin);
+  document.getElementById('ab-tdk-masuk').textContent = tidakMasuk;
+  document.getElementById('ab-alpa-otomatis').textContent = alpa;
+}
+
+function simpanTotalHadir() {
+  const total = parseInt(document.getElementById('ab-total').value);
+  const hadir = parseInt(document.getElementById('ab-jml-hadir').value);
+  if (!total||!hadir) { showToast('⚠️ Isi total karyawan dan jumlah hadir'); return; }
+  if (hadir>total) { showToast('⚠️ Jumlah hadir tidak boleh melebihi total'); return; }
+  STATE.totalKaryawan=total; STATE.totalHadir=hadir;
+  const sakit=STATE.absensi.filter(a=>a.status==='Sakit').length;
+  const izin=STATE.absensi.filter(a=>a.status==='Izin').length;
+  const alpa=Math.max(0,(total-hadir)-sakit-izin);
+  document.getElementById('ab-stat-hadir').textContent=hadir;
+  document.getElementById('ab-stat-alpa').textContent=alpa;
+  document.getElementById('ab-alpa-otomatis').textContent=alpa;
+  document.getElementById('d-hadir').textContent=hadir;
+  document.getElementById('d-alpa').textContent=alpa;
+  // Simpan ke Google Sheets
+  gs('simpanTotalHadir', { tanggal: new Date().toLocaleDateString('id-ID'), total, hadir, alpa });
+  showToast('✅ Total kehadiran '+hadir+'/'+total+' berhasil disimpan!');
+}
+
+function simpanTidakMasuk() {
+  const nama = document.getElementById('ab-nama').value.trim();
+  const div = document.getElementById('ab-div').value;
+  const status = document.getElementById('ab-status').value;
+  const ket = document.getElementById('ab-ket').value.trim();
+  if (!nama) { showToast('⚠️ Isi nama karyawan'); return; }
+  if (!ket) { showToast('⚠️ Isi alasan tidak masuk'); return; }
+  const now = new Date();
+  const time = now.toLocaleTimeString('id-ID',{hour:'2-digit',minute:'2-digit'});
+  STATE.absensi.push({time,nama,div,status,ket,date:now});
+  // Simpan ke Google Sheets
+  gs('simpanTidakMasuk', { tanggal: now.toLocaleDateString('id-ID'), nama, departemen: div, status, alasan: ket });
+  const badges={Sakit:'badge-red',Izin:'badge-yellow'};
+  const tbody = document.getElementById('ab-log');
+  if (tbody.querySelector('td[colspan]')) tbody.innerHTML='';
+  tbody.innerHTML=`<tr>
+    <td style="font-family:'DM Mono',monospace;">${time}</td>
+    <td><strong>${nama}</strong></td><td>${div||'-'}</td>
+    <td><span class="badge ${badges[status]}">${status}</span></td>
+    <td style="color:var(--text-muted);">${ket}</td>
+  </tr>`+tbody.innerHTML;
+  const sakit=STATE.absensi.filter(a=>a.status==='Sakit').length;
+  const izin=STATE.absensi.filter(a=>a.status==='Izin').length;
+  const alpa=Math.max(0,(STATE.totalKaryawan-STATE.totalHadir)-sakit-izin);
+  document.getElementById('ab-stat-sakit').textContent=sakit;
+  document.getElementById('ab-stat-izin').textContent=izin;
+  document.getElementById('ab-stat-alpa').textContent=alpa;
+  document.getElementById('d-sakit').textContent=sakit;
+  document.getElementById('d-izin').textContent=izin;
+  document.getElementById('d-alpa').textContent=alpa;
+  document.getElementById('ab-alpa-otomatis').textContent=alpa;
+  document.getElementById('ab-nama').value='';
+  document.getElementById('ab-ket').value='';
+  updateDashboard();
+  showToast('✅ '+nama+' ('+status+') berhasil ditambahkan!');
+}
+
+function exportAbsensi() {
+  if (!STATE.totalHadir&&STATE.absensi.length===0) { showToast('⚠️ Belum ada data untuk diexport'); return; }
+  const sakit=STATE.absensi.filter(a=>a.status==='Sakit').length;
+  const izin=STATE.absensi.filter(a=>a.status==='Izin').length;
+  const alpa=Math.max(0,(STATE.totalKaryawan-STATE.totalHadir)-sakit-izin);
+  let csv='Tanggal,Total Karyawan,Hadir,Sakit,Izin,Alpa\n';
+  csv+=`${new Date().toLocaleDateString('id-ID')},${STATE.totalKaryawan},${STATE.totalHadir},${sakit},${izin},${alpa}\n\n`;
+  csv+='Waktu,Nama,Departemen,Status,Alasan\n';
+  STATE.absensi.forEach(a=>{csv+=`${a.time},${a.nama},${a.div||'-'},${a.status},${a.ket||'-'}\n`;});
+  const blob=new Blob([csv],{type:'text/csv;charset=utf-8;'});
+  const link=document.createElement('a');
+  link.href=URL.createObjectURL(blob);
+  link.download='absensi-k3-'+new Date().toISOString().split('T')[0]+'.csv';
+  link.click();
+  showToast('⬇ File CSV berhasil diunduh!');
+}
+
+// ═══════════════════════════════════════════
+// KELUHAN — Tab switcher
+// ═══════════════════════════════════════════
+let activeKeluhanTab = 'fisik';
+function switchKeluhan(tab) {
+  activeKeluhanTab = tab;
+  document.getElementById('tab-fisik').style.display = tab==='fisik' ? 'block' : 'none';
+  document.getElementById('tab-lingkungan').style.display = tab==='lingkungan' ? 'block' : 'none';
+  const btnFisik = document.getElementById('tab-btn-fisik');
+  const btnLingk = document.getElementById('tab-btn-lingkungan');
+  if (tab==='fisik') {
+    btnFisik.style.background='var(--primary)'; btnFisik.style.color='white';
+    btnLingk.style.background='transparent'; btnLingk.style.color='var(--text-mid)';
+  } else {
+    btnLingk.style.background='var(--primary-mid)'; btnLingk.style.color='white';
+    btnFisik.style.background='transparent'; btnFisik.style.color='var(--text-mid)';
+  }
+}
+
+// KELUHAN FISIK
+function pilihK(el,nama) { document.querySelectorAll('#keluhan-grid .kb').forEach(b=>b.classList.remove('sel')); el.classList.add('sel'); selKeluhan=nama; }
+function pilihSev(el,sev) { document.querySelectorAll('#tab-fisik .sev-b').forEach(b=>b.classList.remove('sel')); el.classList.add('sel'); selSev=sev; }
+
+function kirimKeluhan() {
+  const div = document.getElementById('kl-div').value;
+  const ket = document.getElementById('kl-ket').value.trim();
+  if (!div) { showToast('⚠️ Pilih departemen'); return; }
+  if (!selKeluhan) { showToast('⚠️ Pilih jenis keluhan'); return; }
+  if (!selSev) { showToast('⚠️ Pilih tingkat keparahan'); return; }
+  const now=new Date();
+  const time=now.toLocaleTimeString('id-ID',{hour:'2-digit',minute:'2-digit'});
+  STATE.keluhanList.push({time,div,keluhan:selKeluhan,sev:selSev,ket,status:'Menunggu'});
+  const sevBadge={Ringan:'badge-green',Sedang:'badge-yellow',Berat:'badge-red'};
+  const tbody=document.getElementById('kl-log');
+  if (tbody.querySelector('td[colspan]')) tbody.innerHTML='';
+  tbody.innerHTML=`<tr>
+    <td style="font-family:'DM Mono',monospace;">${time}</td>
+    <td>${div}</td><td>${selKeluhan}</td>
+    <td><span class="badge ${sevBadge[selSev]}">${selSev}</span></td>
+    <td><span class="badge badge-yellow">Menunggu</span></td>
+  </tr>`+tbody.innerHTML;
+  const total = STATE.keluhanList.length;
+  document.getElementById('kl-count-badge').textContent=total+' laporan';
+  document.getElementById('badge-fisik').textContent=total;
+  document.getElementById('kl-div').value='';
+  document.getElementById('kl-ket').value='';
+  document.querySelectorAll('#keluhan-grid .kb').forEach(b=>b.classList.remove('sel'));
+  document.querySelectorAll('#tab-fisik .sev-b').forEach(b=>b.classList.remove('sel'));
+  selKeluhan=''; selSev='';
+  updateDashboard();
+  showToast('📤 Laporan keluhan fisik berhasil dikirim!');
+}
+
+// KELUHAN LINGKUNGAN
+let selKeluhanL = '', selSevL = '';
+function pilihKL(el,nama) { document.querySelectorAll('#keluhan-lingk-grid .kb').forEach(b=>b.classList.remove('sel')); el.classList.add('sel'); selKeluhanL=nama; }
+function pilihSevL(el,urgensi) { document.querySelectorAll('#tab-lingkungan .sev-b').forEach(b=>b.classList.remove('sel')); el.classList.add('sel'); selSevL=urgensi; }
+
+function kirimKeluhanLingkungan() {
+  const div = document.getElementById('kll-div').value;
+  const lokasi = document.getElementById('kll-lokasi').value.trim();
+  const ket = document.getElementById('kll-ket').value.trim();
+  if (!div) { showToast('⚠️ Pilih departemen'); return; }
+  if (!selKeluhanL) { showToast('⚠️ Pilih kategori masalah'); return; }
+  if (!selSevL) { showToast('⚠️ Pilih tingkat urgensi'); return; }
+  const now=new Date();
+  const time=now.toLocaleTimeString('id-ID',{hour:'2-digit',minute:'2-digit'});
+  STATE.keluhanLingkungan.push({time,div,masalah:selKeluhanL,lokasi,ket,urgensi:selSevL,status:'Menunggu'});
+  const urgBadge={Rendah:'badge-green',Sedang:'badge-yellow',Tinggi:'badge-red'};
+  const tbody=document.getElementById('kll-log');
+  if (tbody.querySelector('td[colspan]')) tbody.innerHTML='';
+  tbody.innerHTML=`<tr>
+    <td style="font-family:'DM Mono',monospace;">${time}</td>
+    <td>${div}</td><td>${selKeluhanL}</td>
+    <td style="font-size:12px;color:var(--text-muted);">${lokasi||'—'}</td>
+    <td><span class="badge ${urgBadge[selSevL]}">${selSevL}</span></td>
+    <td><span class="badge badge-yellow">Menunggu</span></td>
+  </tr>`+tbody.innerHTML;
+  const total = STATE.keluhanLingkungan.length;
+  document.getElementById('kll-count-badge').textContent=total+' laporan';
+  document.getElementById('badge-lingkungan').textContent=total;
+  document.getElementById('kll-div').value='';
+  document.getElementById('kll-lokasi').value='';
+  document.getElementById('kll-ket').value='';
+  document.querySelectorAll('#keluhan-lingk-grid .kb').forEach(b=>b.classList.remove('sel'));
+  document.querySelectorAll('#tab-lingkungan .sev-b').forEach(b=>b.classList.remove('sel'));
+  selKeluhanL=''; selSevL='';
+  showToast('📤 Laporan lingkungan berhasil dikirim!');
+}
+
+// ═══════════════════════════════════════════
+// SKRINING — No NIP
+// ═══════════════════════════════════════════
+function prosesS() {
+  const nama=document.getElementById('sk-nama').value.trim();
+  const div=document.getElementById('sk-div').value;
+  const usia=parseFloat(document.getElementById('sk-usia').value);
+  const bb=parseFloat(document.getElementById('sk-bb').value);
+  const tb=parseFloat(document.getElementById('sk-tb').value);
+  const sis=parseFloat(document.getElementById('sk-sis').value);
+  const dia=parseFloat(document.getElementById('sk-dia').value);
+  const riw=document.getElementById('sk-riw').value;
+  if (!nama||!div||isNaN(bb)||isNaN(tb)||isNaN(sis)||isNaN(dia)||isNaN(usia)) { showToast('⚠️ Lengkapi semua data skrining'); return; }
+  const bmi=bb/((tb/100)**2);
+  const bmiR=Math.round(bmi*10)/10;
+  let bmiKat,bmiColor;
+  if (bmi<18.5){bmiKat='Kurang';bmiColor='#d4a017';}
+  else if (bmi<25){bmiKat='Normal';bmiColor='var(--primary-light)';}
+  else if (bmi<30){bmiKat='Berlebih';bmiColor='#f3722c';}
+  else{bmiKat='Obesitas';bmiColor='var(--danger)';}
+  let tdKat,tdDot;
+  if (sis<120&&dia<80){tdKat='Normal';tdDot='badge-green';}
+  else if (sis<130){tdKat='Pra-Hipertensi';tdDot='badge-yellow';}
+  else{tdKat='Hipertensi';tdDot='badge-red';}
+  const hasRisk=bmiKat!=='Normal'||tdDot!=='badge-green'||riw!=='Tidak Ada';
+  const risikoLabel=!hasRisk?'Rendah':(bmiKat==='Obesitas'||tdDot==='badge-red')?'Tinggi':'Sedang';
+  const risikoClass={Rendah:'badge-green',Sedang:'badge-yellow',Tinggi:'badge-red'}[risikoLabel];
+  document.getElementById('sk-empty').style.display='none';
+  document.getElementById('sk-content').style.display='block';
+  const circle=document.getElementById('sk-bmi-circle');
+  circle.style.borderColor=bmiColor;circle.style.color=bmiColor;circle.style.background=bmiColor+'15';
+  document.getElementById('sk-bmi-val').textContent=bmiR;
+  document.getElementById('sk-bmi-kat').textContent='BMI '+bmiKat;
+  const recs=[];
+  if (bmiKat!=='Normal') recs.push('Konsultasi program gizi dengan ahli gizi pabrik');
+  if (tdDot!=='badge-green') recs.push('Pantau tekanan darah rutin setiap minggu di klinik K3');
+  if (riw!=='Tidak Ada') recs.push('Laporkan riwayat '+riw+' ke dokter perusahaan');
+  if (usia>40) recs.push('Medical check-up lengkap minimal 1× per tahun');
+  if (!recs.length) recs.push('Pertahankan gaya hidup sehat. Terus semangat bekerja!');
+  document.getElementById('sk-risks').innerHTML=[
+    ['BMI: '+bmiR+' ('+bmiKat+')',bmiKat==='Normal'?'badge-green':bmiKat==='Berlebih'||bmiKat==='Kurang'?'badge-yellow':'badge-red'],
+    ['Tekanan Darah: '+sis+'/'+dia+' ('+tdKat+')',tdDot],
+    ['Riwayat: '+riw,riw==='Tidak Ada'?'badge-green':'badge-yellow'],
+    ['Usia: '+usia+' tahun'+(usia>40?' — Pantau lebih ketat':''),'badge-blue'],
+  ].map(([txt,cls])=>`<div style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--surface2);border-radius:8px;font-size:12px;"><span class="badge ${cls}">${cls.replace('badge-','')}</span>${txt}</div>`).join('');
+  document.getElementById('sk-rec').innerHTML='<strong>📋 Rekomendasi:</strong><br>'+recs.map(r=>'• '+r).join('<br>');
+  STATE.skrining.push({nama,div,bmi:bmiR,td:`${sis}/${dia}`,risiko:risikoLabel});
+  // Simpan ke Google Sheets
+  gs('simpanSkrining', { nama, departemen: div, usia, bb, tb, bmi: bmiR, kategoriBmi: bmiKat, sistolik: sis, diastolik: dia, riwayat: riw, risiko: risikoLabel });
+  const tbody=document.getElementById('sk-log');
+  if (tbody.querySelector('td[colspan]')) tbody.innerHTML='';
+  tbody.innerHTML=`<tr><td><strong>${nama}</strong></td><td>${div}</td><td style="font-family:'DM Mono',monospace;">${bmiR}</td><td style="font-family:'DM Mono',monospace;">${sis}/${dia}</td><td><span class="badge ${risikoClass}">${risikoLabel}</span></td></tr>`+tbody.innerHTML;
+  showToast('✅ Skrining berhasil diproses!');
+}
+
+// ═══════════════════════════════════════════
+// GERAKAN PEREGANGAN
+// ═══════════════════════════════════════════
+function renderGerakan() {
+  document.getElementById('gerak-grid').innerHTML=STATE.gerakan.map((g,i)=>`
+    <div class="sc">
+      <div class="sc-head" style="display:flex;justify-content:space-between;align-items:center;">
+        <div style="display:flex;align-items:center;gap:10px;"><div class="sc-n">${String(i+1).padStart(2,'0')}</div><div class="sc-name">${g.nama}</div></div>
+        ${STATE.role==='admin'?`<button onclick="editGerak(${i})" style="background:rgba(255,255,255,0.1);border:none;color:rgba(255,255,255,0.7);cursor:pointer;border-radius:6px;padding:4px 8px;font-size:11px;">✏️</button>`:''}
+      </div>
+      <div class="sc-body">
+        <span class="sc-emoji">${g.emoji}</span>
+        <ul class="sc-steps">${g.steps.map(s=>`<li><span class="n">·</span>${s}</li>`).join('')}</ul>
+        <div class="sc-dur">⏱ ${g.dur}</div>
+        ${STATE.role==='admin'?`<button onclick="hapusGerak(${i})" style="margin-top:10px;background:rgba(230,57,70,0.1);border:1px solid rgba(230,57,70,0.2);color:var(--danger);cursor:pointer;border-radius:6px;padding:4px 10px;font-size:11px;font-weight:600;">🗑 Hapus</button>`:''}
+      </div>
+    </div>`).join('');
+}
+function showFormGerak() { editGerakIdx=-1; document.getElementById('form-gerak-title').textContent='Tambah Gerakan Baru'; ['fg-nama','fg-emoji','fg-steps','fg-dur'].forEach(id=>document.getElementById(id).value=''); document.getElementById('form-gerak').style.display='block'; document.getElementById('form-gerak').scrollIntoView({behavior:'smooth'}); }
+function editGerak(i) { editGerakIdx=i; const g=STATE.gerakan[i]; document.getElementById('form-gerak-title').textContent='Edit Gerakan'; document.getElementById('fg-nama').value=g.nama; document.getElementById('fg-emoji').value=g.emoji; document.getElementById('fg-steps').value=g.steps.join('\n'); document.getElementById('fg-dur').value=g.dur; document.getElementById('form-gerak').style.display='block'; document.getElementById('form-gerak').scrollIntoView({behavior:'smooth'}); }
+function simpanGerak() {
+  const nama=document.getElementById('fg-nama').value.trim();
+  const stepsRaw=document.getElementById('fg-steps').value.trim();
+  if (!nama||!stepsRaw) { showToast('⚠️ Isi nama dan langkah-langkah'); return; }
+  const gerak={nama,emoji:document.getElementById('fg-emoji').value.trim()||'🧘',steps:stepsRaw.split('\n').filter(s=>s.trim()),dur:document.getElementById('fg-dur').value.trim()||'60 dtk'};
+  if (editGerakIdx>=0) STATE.gerakan[editGerakIdx]=gerak;
+  else STATE.gerakan.push(gerak);
+  document.getElementById('form-gerak').style.display='none';
+  renderGerakan();
+  gs('simpanGerakan', { semua: STATE.gerakan });
+  showToast('✅ Gerakan berhasil disimpan!');
+}
+function hapusGerak(i) { if (!confirm('Hapus gerakan ini?')) return; STATE.gerakan.splice(i,1); renderGerakan(); gs('simpanGerakan',{semua:STATE.gerakan}); showToast('🗑 Gerakan dihapus'); }
+
+// ═══════════════════════════════════════════
+// KASUS SAKIT
+// ═══════════════════════════════════════════
+function simpanKasus() {
+  const nama=document.getElementById('ks-nama').value.trim();
+  const div=document.getElementById('ks-div').value;
+  const diag=document.getElementById('ks-diag').value;
+  const tgl=document.getElementById('ks-tgl').value;
+  const hari=document.getElementById('ks-hari').value;
+  const tindak=document.getElementById('ks-tindak').value;
+  if (!nama||!div||!diag||!tgl||!hari) { showToast('⚠️ Lengkapi semua data kasus'); return; }
+  STATE.kasus.push({nama,div,diag,tgl,hari,tindak});
+  // Simpan ke Google Sheets
+  gs('simpanKasus', { nama, departemen: div, diagnosa: diag, tanggal: tgl, hariSakit: hari, tindakan: tindak });
+  const tbody=document.getElementById('ks-log');
+  if (tbody.querySelector('td[colspan]')) tbody.innerHTML='';
+  tbody.innerHTML=`<tr>
+    <td style="font-family:'DM Mono',monospace;">${tgl}</td><td><strong>${nama}</strong></td><td>${div}</td>
+    <td><span class="badge badge-orange">${diag}</span></td>
+    <td style="font-family:'DM Mono',monospace;">${hari} hari</td><td>${tindak}</td>
+  </tr>`+tbody.innerHTML;
+  document.getElementById('ks-nama').value=''; document.getElementById('ks-div').value='';
+  document.getElementById('ks-diag').value=''; document.getElementById('ks-tgl').value=''; document.getElementById('ks-hari').value='';
+  updateKasusDist(); updateDashboard();
+  showToast('✅ Data kasus berhasil disimpan!');
+}
+
+function updateKasusDist() {
+  const renderDist = (containerId) => {
+    const c=document.getElementById(containerId);
+    if (!c) return;
+    if (!STATE.kasus.length) { c.innerHTML='<div class="empty"><span class="e-icon">🏥</span>Belum ada data kasus</div>'; return; }
+    const counts={};
+    STATE.kasus.forEach(k=>{counts[k.diag]=(counts[k.diag]||0)+1;});
+    const sorted=Object.entries(counts).sort((a,b)=>b[1]-a[1]);
+    const max=sorted[0][1];
+    const colors=['#52b788','#f9c74f','#f3722c','#e63946','#4361ee','#7209b7','#023e8a','#48cae4'];
+    c.innerHTML=sorted.map(([d,cnt],i)=>`<div class="kasus-item"><div class="kasus-dot" style="background:${colors[i%colors.length]};"></div><div class="kasus-name">${d}</div><div class="kasus-bar"><div class="kasus-bar-fill" style="width:${cnt/max*100}%;background:${colors[i%colors.length]};"></div></div><div class="kasus-count">${cnt}</div></div>`).join('');
+  };
+  renderDist('kasus-dist');
+  renderDist('kasus-dist-umum');
+}
+
+// ═══════════════════════════════════════════
+// DASHBOARD
+// ═══════════════════════════════════════════
+function updateDashboard() {
+  document.getElementById('d-hadir').textContent=STATE.totalHadir;
+  const sakit=STATE.absensi.filter(a=>a.status==='Sakit').length;
+  const izin=STATE.absensi.filter(a=>a.status==='Izin').length;
+  const alpa=Math.max(0,(STATE.totalKaryawan-STATE.totalHadir)-sakit-izin);
+  document.getElementById('d-sakit').textContent=sakit;
+  document.getElementById('d-izin').textContent=izin;
+  document.getElementById('d-alpa').textContent=alpa;
+  const dkbody=document.getElementById('dash-keluhan-body');
+  if (!STATE.keluhanList.length) { dkbody.innerHTML='<tr><td colspan="3"><div class="empty">Belum ada keluhan</div></td></tr>'; }
+  else {
+    const sevBadge={Ringan:'badge-green',Sedang:'badge-yellow',Berat:'badge-red'};
+    dkbody.innerHTML=STATE.keluhanList.slice(0,5).map(k=>`<tr><td>${k.div||'—'}</td><td>${k.keluhan}</td><td><span class="badge ${sevBadge[k.sev]}">${k.sev}</span></td></tr>`).join('');
+  }
+  const ksDiv=document.getElementById('kasus-summary');
+  if (!STATE.kasus.length) { ksDiv.innerHTML='<div class="empty"><span class="e-icon">🏥</span>Belum ada data kasus</div>'; }
+  else {
+    const counts={};
+    STATE.kasus.forEach(k=>{counts[k.diag]=(counts[k.diag]||0)+1;});
+    const sorted=Object.entries(counts).sort((a,b)=>b[1]-a[1]).slice(0,5);
+    const max=sorted[0][1];
+    ksDiv.innerHTML=sorted.map(([d,cnt])=>`<div class="kasus-item"><div class="kasus-dot" style="background:var(--primary-light);"></div><div class="kasus-name">${d}</div><div class="kasus-bar"><div class="kasus-bar-fill" style="width:${cnt/max*100}%;"></div></div><div class="kasus-count">${cnt}</div></div>`).join('');
+  }
+}
+
+// ═══════════════════════════════════════════
+// REKAP
+// ═══════════════════════════════════════════
+function updateRekap() {
+  const sakit=STATE.absensi.filter(a=>a.status==='Sakit').length;
+  const izin=STATE.absensi.filter(a=>a.status==='Izin').length;
+  const alpa=Math.max(0,(STATE.totalKaryawan-STATE.totalHadir)-sakit-izin);
+  document.getElementById('rek-hadir').textContent=STATE.totalHadir;
+  document.getElementById('rek-sakit').textContent=sakit;
+  document.getElementById('rek-izin').textContent=izin;
+  document.getElementById('rek-alpa').textContent=alpa;
+  const tbody=document.getElementById('rek-log');
+  if (!STATE.absensi.length) { tbody.innerHTML='<tr><td colspan="5"><div class="empty">Belum ada data</div></td></tr>'; }
+  else {
+    const badges={Sakit:'badge-red',Izin:'badge-yellow'};
+    tbody.innerHTML=STATE.absensi.map(a=>`<tr><td style="font-family:'DM Mono',monospace;">${a.time}</td><td><strong>${a.nama}</strong></td><td>${a.div||'-'}</td><td><span class="badge ${badges[a.status]}">${a.status}</span></td><td style="color:var(--text-muted);">${a.ket||'-'}</td></tr>`).join('');
+  }
+  const kDiv=document.getElementById('rek-keluhan-summary');
+  if (!STATE.keluhanList.length && !STATE.keluhanLingkungan.length) { kDiv.innerHTML='<div class="empty"><span class="e-icon">🩺</span>Belum ada data keluhan</div>'; }
+  else {
+    let html = '';
+    if (STATE.keluhanList.length) {
+      const counts={};
+      STATE.keluhanList.forEach(k=>{counts[k.keluhan]=(counts[k.keluhan]||0)+1;});
+      const sorted=Object.entries(counts).sort((a,b)=>b[1]-a[1]);
+      const max=sorted[0][1];
+      html += '<div style="font-size:12px;font-weight:700;color:var(--primary);margin-bottom:8px;">🩺 Keluhan Fisik</div>';
+      html += sorted.map(([k,cnt])=>`<div class="kasus-item"><div class="kasus-dot" style="background:var(--danger);"></div><div class="kasus-name">${k}</div><div class="kasus-bar"><div class="kasus-bar-fill" style="width:${cnt/max*100}%;background:var(--danger);"></div></div><div class="kasus-count">${cnt}</div></div>`).join('');
+    }
+    if (STATE.keluhanLingkungan.length) {
+      const counts={};
+      STATE.keluhanLingkungan.forEach(k=>{counts[k.masalah]=(counts[k.masalah]||0)+1;});
+      const sorted=Object.entries(counts).sort((a,b)=>b[1]-a[1]);
+      const max=sorted[0][1];
+      html += '<div style="font-size:12px;font-weight:700;color:var(--primary-mid);margin:12px 0 8px;">🌿 Keluhan Lingkungan</div>';
+      html += sorted.map(([k,cnt])=>`<div class="kasus-item"><div class="kasus-dot" style="background:var(--primary-light);"></div><div class="kasus-name">${k}</div><div class="kasus-bar"><div class="kasus-bar-fill" style="width:${cnt/max*100}%;background:var(--primary-light);"></div></div><div class="kasus-count">${cnt}</div></div>`).join('');
+    }
+    kDiv.innerHTML = html;
+  }
+  buildBarChart();
+}
+
+function buildBarChart() {
+  const weeks=['M1','M2','M3','M4'];
+  const h=STATE.totalHadir||80; const s=STATE.absensi.filter(a=>a.status==='Sakit').length||3; const i=STATE.absensi.filter(a=>a.status==='Izin').length||2;
+  const data=[{h:Math.floor(h*.9),s:Math.floor(s*.8),i:Math.floor(i*1.2)},{h:Math.floor(h*.95),s:Math.floor(s*1.1),i:Math.floor(i*.9)},{h,s,i},{h:Math.floor(h*.92),s:Math.floor(s*.9),i}];
+  const maxVal=Math.max(...data.map(d=>d.h+d.s+d.i));
+  document.getElementById('bar-chart').innerHTML=data.map((d,idx)=>`<div class="bar-wrap"><div class="bar-val">${d.h+d.s+d.i}</div><div style="width:100%;display:flex;flex-direction:column;gap:2px;align-items:stretch;"><div class="bar hadir" style="height:${d.h/maxVal*80}px;"></div><div class="bar sakit" style="height:${d.s/maxVal*80}px;"></div><div class="bar izin" style="height:${d.i/maxVal*80}px;"></div></div><div class="bar-lbl">${weeks[idx]}</div></div>`).join('');
+}
+
+// ═══════════════════════════════════════════
+// TIMER
+// ═══════════════════════════════════════════
+function toggleT() {
+  if (timerOn) { clearInterval(timerInt); timerOn=false; document.getElementById('t-btn').textContent='▶ Lanjut'; }
+  else { timerOn=true; document.getElementById('t-btn').textContent='⏸ Pause'; timerInt=setInterval(()=>{timerSec--;if(timerSec<=0){clearInterval(timerInt);timerOn=false;timerSec=0;document.getElementById('t-btn').textContent='▶ Mulai';showToast('🎉 Sesi peregangan selesai! Kerja bagus!');}updateTDisplay();},1000); }
+}
+function resetT() { clearInterval(timerInt); timerOn=false; timerSec=300; document.getElementById('t-btn').textContent='▶ Mulai'; updateTDisplay(); }
+function updateTDisplay() { const m=Math.floor(timerSec/60).toString().padStart(2,'0'); const s=(timerSec%60).toString().padStart(2,'0'); document.getElementById('t-display').textContent=m+':'+s; }
+
+// ═══════════════════════════════════════════
+// MODAL HELPERS
+// ═══════════════════════════════════════════
+function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+document.querySelectorAll('.modal-overlay').forEach(m=>{ m.addEventListener('click',e=>{ if(e.target===m) m.classList.remove('open'); }); });
+
+// ═══════════════════════════════════════════
+// TOAST
+// ═══════════════════════════════════════════
+function showToast(msg) {
+  const t=document.getElementById('toast');
+  document.getElementById('toast-msg').textContent=msg;
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),3000);
+}
+
+// ─── Init info section visibility ───
+document.getElementById('s-info-section').style.display='none';
+</script>
+</body>
+</html>
